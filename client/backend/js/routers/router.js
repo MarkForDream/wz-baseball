@@ -1,6 +1,5 @@
 angular.module('backend.router', ['ngAnimate', 'ui.router', 'backend.main.controller']).config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/backend');
-
     $stateProvider
         .state('backend', {
             url: '',
