@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="wzBaseball">
+<head>
+  	<title>WZ Baseball</title>
+	<meta charset="utf-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta content="width=device-width, initial-scale=1" name="viewport">
+	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+	<header class="header">
+		<div ui-view="header"></div>
+	</header>
+	<div class="container">
+		<div ui-view="container"></div>
+	</div>
+	<footer class="footer">
+		<div ui-view="footer"></div>
+	</footer>
+	<script src="/bower_components/angular/angular.js"></script>
+	<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+	<script src="/bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+	<script src="/bower_components/angular-toasty/dist/angular-toasty.min.js"></script>
+	<script src="/bower_components/angular-smart-table/dist/smart-table.min.js"></script>
+	<script src="/backend/js/routers/router.js"></script>
+	<script src="/backend/js/controllers/MainController.js"></script>
+	<script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "name": "wz-baseball",
+  "homepage": "https://github.com/MarkForDream/wz-baseball",
+  "authors": [
+    "MarkForDream <mark790529@gmail.com>"
+  ],
+  "description": "WZ Baseball Project",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "^1.5.4",
+    "jquery": "^2.2.3",
+    "bootstrap": "^3.3.6",
+    "angular-ui-router": "^0.2.18",
+    "ng-file-upload": "^12.0.4",
+    "angular-toasty": "^1.0.5",
+    "angular-smart-table": "^2.1.8"
+  }
+}
