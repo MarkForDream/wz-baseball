@@ -1,6 +1,4 @@
 angular.module('backend.router', ['ui.router', 'backend.main.controller']).config(function($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/backend');
-
     $stateProvider
         .state('backend', {
             url: '',
