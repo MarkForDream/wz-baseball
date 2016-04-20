@@ -1,4 +1,4 @@
-angular.module('backend.router', ['ui.router', 'backend.main.controller']).config(function($stateProvider, $urlRouterProvider) {
+angular.module('backend.router', ['ui.router', 'backend.main.controller', 'backend.login.controller']).config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('backend', {
             url: '',
@@ -19,6 +19,15 @@ angular.module('backend.router', ['ui.router', 'backend.main.controller']).confi
             views: {
                 'container@': {
                     templateUrl: '/backend/views/home.html'
+                }
+            }
+        })
+        .state('backend.login', {
+            url: '/backend/login',
+            views: {
+                'container@': {
+                    controller: 'LoginController',
+                    templateUrl: '/backend/views/login.html'
                 }
             }
         });
