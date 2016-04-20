@@ -1,7 +1,32 @@
 <div class="row">
-	<div class="col-xs-12">
-		<div class="jumbotron">
-			<h1 class="text-center">登入</h1>
-		</div>
+	<div class="col-md-offset-3 col-md-6 col-sm-12">
+		<h1 class="text-center">後台系統登入</h1>
+		<form ng-submit="loginForm.$valid && loginFormSubmit()" name="loginForm" novalidate>
+			<div class="form-group required" ng-form="email" ng-class="{
+                'has-success': email.$valid && (!email.$pristine || loginForm.$submitted),
+                'has-error': email.$invalid && (!email.$pristine || loginForm.$submitted)
+            }">
+				<label for="email">Email</label>
+				<input type="text" placeholder="Email" class="form-control" name="email" ng-model="user.email" required validate-email>
+				<div class="error-messages" ng-messages="email.$error" ng-show="email.$invalid && (!email.$pristine || loginForm.$submitted)">
+					<div ng-messages-include="errorMessages.html"></div>
+				</div>
+            </div>
+            <div class="form-group required" ng-form="password" ng-class="{
+                'has-success': password.$valid && (!password.$pristine || loginForm.$submitted),
+                'has-error': password.$invalid && (!password.$pristine || loginForm.$submitted)
+            }">
+				<label for="password">Password</label>
+                <input type="password" placeholder="Password" class="form-control" name="password" ng-model="user.password" required>
+				<div class="error-messages" ng-messages="password.$error" ng-show="password.$invalid && (!password.$pristine || loginForm.$submitted)">
+					<div ng-messages-include="errorMessages.html"></div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-warning btn-lg btn-block" ng-disabled="
+                (loginForm.$valid && loginForm.$submitted) || loginForm.$pristine || loginForm.$invalid
+            ">
+                登入
+            </button>
+		</form>
 	</div>
 </div>

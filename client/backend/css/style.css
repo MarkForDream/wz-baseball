@@ -27,6 +27,34 @@ body > .container {
 	cursor: pointer;
 }
 
+div.required > label::after {
+	color: red;
+	content: " *";
+}
+
+.error-messages {
+	position: relative;
+	color: white;
+	background: maroon;
+	padding: 5px;
+	margin-top: 10px;
+	border-radius: 5px;
+}
+
+.error-messages:after {
+	position: absolute;
+	top: -10px;
+	left: 20px;
+	content: "";
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent transparent maroon;
+}
+
+.error-messages p {
+	margin: 0;
+}
+
 #signup-form {
 	position: relative;
 	min-height: 300px;
@@ -158,5 +186,5 @@ body {
 }
 
 label {
-	color: #FFF;
+	color: #888;
 }
