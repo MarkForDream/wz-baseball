@@ -188,3 +188,32 @@ body {
 label {
 	color: #888;
 }
+
+
+/* for radio group */
+.radio-group input[type="radio"] {
+	display: none;
+}
+
+.radio-group label {
+	display: inline-block;
+	color: #5A9352;
+	padding: 4px 11px;
+	font-family: Arial;
+	font-size: 16px;
+	border-radius: 4px;
+}
+
+.radio-group label:hover {
+	background: #cae0c7;
+	color: #4a7145;
+	border-color: #cae0c7;
+}
+
+.radio-group input[type="radio"]:checked + label{
+	background-color: #b5cfb1;
+	color: #3a5f35;
+	border: 1px solid #82a57e;
+}
+
+/* for radio group */
