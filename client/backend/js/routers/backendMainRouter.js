@@ -1,4 +1,4 @@
-angular.module('backend.router', ['ngAnimate', 'ui.router', 'backend.main.controller', 'backend.login.controller']).config(function($stateProvider, $urlRouterProvider) {
+angular.module('backend.router', ['ui.router', 'backend.controller']).config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('backend', {
             url: '',
@@ -31,5 +31,4 @@ angular.module('backend.router', ['ngAnimate', 'ui.router', 'backend.main.contro
                 }
             }
         });
-        
 });

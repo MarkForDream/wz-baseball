@@ -1,5 +1,4 @@
-angular.module('backend.main.controller', [])
+angular.module('backend.controller', [])
     .controller('LayoutController', function($rootScope, $scope) {
 
     });
-
