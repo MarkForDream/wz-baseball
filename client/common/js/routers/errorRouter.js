@@ -1,4 +1,4 @@
-angular.module('404.router', ['ui.router']).config(function($stateProvider, $urlRouterProvider) {
+angular.module('error.router', ['ui.router']).config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/404');
 
     $stateProvider
