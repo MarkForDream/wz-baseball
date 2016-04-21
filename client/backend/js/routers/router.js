@@ -30,26 +30,6 @@ angular.module('backend.router', ['ngAnimate', 'ui.router', 'backend.main.contro
                     templateUrl: '/backend/views/login.html'
                 }
             }
-        })
-        .state('backend.newOrder', {
-            url: '/newOrder',
-            views: {
-                'container@': {
-                    controller: 'OrderController',
-                    templateUrl: '/backend/views/newOrder.html'
-                }
-            }
-        })
-        .state('backend.newOrder.contact', {
-            url: '/contact',
-            templateUrl: '/backend/views/newOrder-contact.html'
-        })
-        .state('backend.newOrder.handers', {
-            url: '/handers',
-            templateUrl: '/backend/views/newOrder-handers.html'
-        })
-        .state('backend.newOrder.payment', {
-            url: '/payment',
-            templateUrl: '/backend/views/newOrder-payment.html'
         });
+        
 });
