@@ -1,0 +1,58 @@
+<h3 class="stepTitle">
+	Step 2 of 16 - 布標選擇
+</h3>
+
+
+<div class="row text-center">
+	<div class="form-group">
+		<div class="radio-group">
+			<div class="col-sm-4">
+	
+				<input type="radio" ng-model="formData.mark" id="mark1" value="mark1" checked>
+				<label for="mark1">
+					<div class="thumbnail">
+						<img src="/frontend/images/baseball.jpg">
+						<p><strong>金標</strong></p>
+					</div>
+				</label>
+				
+			</div>
+			<div class="col-sm-4">
+				<input type="radio" ng-model="formData.mark" id="mark2" value="mark2">
+				<label for="mark2">
+					<div class="thumbnail">
+						<img src="/frontend/images/baseball.jpg">
+						<p><strong>紅標</strong></p>
+					</div>
+				</label>
+				
+			</div>
+			<div class="col-sm-4">
+				<input type="radio" ng-model="formData.mark" id="mark3" value="mark3">
+				<label for="mark3">
+					<div class="thumbnail">
+						<img src="/frontend/images/baseball.jpg">
+						<p><strong>藍標</strong></p>
+					</div>
+				</label>
+				
+			</div>
+
+			
+		</div>
+	</div>
+</div>
+
+
+<div class="form-group row">
+	<div class="col-xs-6">
+		<a ui-sref="frontend.newOrder.leather" class="btn btn-block btn-danger">
+			<span class="glyphicon glyphicon-circle-arrow-left"></span>上一步
+		</a>
+	</div>
+	<div class="col-xs-6">
+		<a ui-sref="frontend.newOrder.handers" class="btn btn-block btn-info">
+			下一步 <span class="glyphicon glyphicon-circle-arrow-right"></span>
+		</a>
+	</div>
+</div>

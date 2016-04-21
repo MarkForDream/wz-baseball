@@ -32,9 +32,13 @@ angular.module('frontend.router', ['ngAnimate', 'ui.router', 'MainController'])
 						}
 					}
 				})
-				.state('frontend.newOrder.contact', {
-            		url: '/contact',
-            		templateUrl: '/frontend/views/newOrder-contact.html'
+				.state('frontend.newOrder.leather', {
+            		url: '/leather',
+            		templateUrl: '/frontend/views/newOrder-leather.html'
+        		})
+        		.state('frontend.newOrder.mark', {
+            		url: '/mark',
+            		templateUrl: '/frontend/views/newOrder-mark.html'
         		})
         		.state('frontend.newOrder.handers', {
             		url: '/handers',
