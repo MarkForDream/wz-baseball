@@ -1,4 +1,4 @@
-angular.module('backend.controller', ['LoginFactory']).controller('LoginController', function($rootScope, $scope, $state, LoginFactory) {
+angular.module('backend.controller', ['backend.factory']).controller('LoginController', function($rootScope, $scope, $state, LoginFactory) {
     $scope.loginFormSubmit = function() {
         $scope.loginForm.$setPristine();
 

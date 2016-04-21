@@ -6,13 +6,7 @@ angular.module('backend.factory', []).factory('LoginFactory', function($q, $http
 
         $http.post('/api/backend/login', user)
             .success(function(response) {
-                if (response.status) {
-                    IdentityFactory.process(response);
 
-                    defer.resolve(response);
-                } else {
-                    defer.reject(response);
-                }
             });
 
         return defer.promise;

@@ -1,17 +1,24 @@
 <label>左手手套還是右手手套?</label>
 <div class="form-group">
-	<div class="radio">
-		<label>
-			<input type="radio" ng-model="formData.type" value="rightHand" checked>
-			右手手套
-		</label>
+	<div class="radio-group">
+		
+		<input type="radio" ng-model="formData.type" id="typeRight" value="rightHand" checked>
+		<label for="typeRight">右手手套</label>
+	
+		<input type="radio" ng-model="formData.type" id="typeLeft" value="leftHand">
+		<label for="typeLeft">左手手套</label>
+		
+		<input type="radio" ng-model="formData.type" id="typeMiddle" value="middleFinger">
+		<label for="typeMiddle">中指手套</label>
+
+		<input type="radio" ng-model="formData.type" id="typeIndex" value="indexFinger">
+		<label for="typeIndex">食指手套</label>
+
+		<input type="radio" ng-model="formData.type" id="typeTail" value="tailFinger">
+		<label for="typeTail">小拇指手套</label>
+
 	</div>
-	<div class="radio">
-		<label>
-			<input type="radio" ng-model="formData.type" value="leftHand">
-			左手手套
-		</label>
-	</div>
+	
 </div>
 
 <div class="form-group row">
