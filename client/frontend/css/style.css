@@ -185,11 +185,6 @@ body {
 	background: #00BC8C;
 }
 
-label {
-	color: #888;
-}
-
-
 /* for radio group */
 .radio-group input[type="radio"] {
 	display: none;
@@ -217,3 +212,7 @@ label {
 }
 
 /* for radio group */
+
+h3 .step {
+	color: white;
+}
