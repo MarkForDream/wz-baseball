@@ -1,8 +1,8 @@
-angular.module('backend.controller', ['backend.factory']).controller('LoginController', function($rootScope, $scope, $state, LoginFactory) {
+angular.module('backend.controller', ['backend.factory']).controller('IdentityController', function($rootScope, $scope, $state, IdentityFactory) {
     $scope.loginFormSubmit = function() {
         $scope.loginForm.$setPristine();
 
-        LoginFactory.login($scope.user)
+        IdentityFactory.login($scope.user)
             .then(function(response) {
 
             })

@@ -26,7 +26,7 @@ angular.module('backend.router', ['ui.router', 'backend.controller']).config(fun
             url: '/backend/login',
             views: {
                 'container@': {
-                    controller: 'LoginController',
+                    controller: 'IdentityController',
                     templateUrl: '/backend/views/login.html'
                 }
             }
