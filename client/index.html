@@ -6,12 +6,14 @@
 	<meta content="IE=edge" http-equiv="X-UA-Compatible">
 	<meta content="width=device-width, initial-scale=1" name="viewport">
 	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="bower_components/angular-toasty/dist/angular-toasty.css">
 </head>
 <body>
 	<header class="header">
 		<div ui-view="header"></div>
 	</header>
 	<div class="container">
+		<toasty></toasty>
 		<div ui-view="container"></div>
 	</div>
 	<footer class="footer">
@@ -28,8 +30,9 @@
 	<script src="/bower_components/angular-messages/angular-messages.js"></script>
 	<script src="/common/js/routers/errorRouter.js"></script>
 	<script src="/common/js/services/apiFactory.js"></script>
+	<script src="/common/js/config/toastyConfig.js"></script>
 	<script src="/backend/js/routers/backendMainRouter.js"></script>
-	<script src="/backend/js/controllers/MainController.js"></script>
+	<script src="/backend/js/controllers/LayoutController.js"></script>
 	<script src="/backend/js/controllers/IdentityController.js"></script>
 	<script src="/backend/js/services/identityFactory.js"></script>
 	<script src="/backend/js/directives/validateEmail.js"></script>
