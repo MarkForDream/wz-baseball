@@ -2,6 +2,7 @@ angular.module('common.factory', []).factory('ApiFactory', function($q, $http) {
     var factory = {};
 
     factory.callApi = function(url, data, okCallback, errorCallback) {
+
         var defer = $q.defer();
 
         $http.post(url, data).success(function(response) {
