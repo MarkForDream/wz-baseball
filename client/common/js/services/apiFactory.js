@@ -6,10 +6,10 @@ angular.module('common.factory', []).factory('ApiFactory', function($q, $http) {
 
         $http.post(url, data).success(function(response) {
             if (response.status === 'ok') {
-                okCallback(response);
+                if (okCallback) okCallback(response);
                 defer.resolve(response);
             } else if (response.status === 'error') {
-                errorCallback(response);
+                if (errorCallback) errorCallback(response);
                 defer.reject(response);
             }
         });

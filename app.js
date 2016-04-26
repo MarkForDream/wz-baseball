@@ -7,6 +7,7 @@ var passport = require('passport');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var config = require('server/config/main');
+var userRouter = require('server/routers/userRouter');
 var app = express();
 var server = http.createServer(app);
 var orderRouter = require('./server/routers/orderRouter');
@@ -17,6 +18,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressValidator(require('server/validators/custom')));
 app.use(express.static(__dirname + '/client'));
 app.use(passport.initialize());
+app.use('/api', userRouter(express, require('server/config/passport')(passport)));
 
 app.use('/api', orderRouter(express));
 

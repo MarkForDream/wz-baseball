@@ -4,6 +4,7 @@ module.exports = {
     'port': port,
     'dbUrl': 'mongodb://localhost/wz_baseball',
     'emailValidator': /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i,
+    'systemError': {'status': 'error', 'result': {'errorCode': 1, 'errorMessage': '系統錯誤'}},
     'smtp': {
         'mailFrom': '',
         'user': '',

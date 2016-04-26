@@ -1,1 +1,1 @@
-angular.module('wzBaseball', ['error.router', 'common.factory', 'frontend.router', 'frontend.factory', 'backend.router', 'backend.factory', 'backend.directive', 'ngMessages', 'ngFileUpload', 'angular-toasty', 'smart-table']);
+angular.module('wzBaseball', ['error.router', 'common.factory', 'common.config', 'frontend.router', 'frontend.factory', 'backend.router', 'backend.factory', 'backend.directive', 'ngMessages', 'ngFileUpload', 'angular-toasty', 'smart-table']);
