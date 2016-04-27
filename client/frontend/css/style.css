@@ -57,8 +57,9 @@ div.required > label::after {
 
 #signup-form {
 	position: relative;
-	min-height: 300px;
-	overflow: hidden;
+	height: 60vh;
+	/*min-height: 300px;*/
+	overflow: auto;
 	padding: 30px;
 }
 
@@ -248,5 +249,3 @@ h3 .step {
 	transform: scale(1.5);
 	border-radius: 3px;
 }
-
-
