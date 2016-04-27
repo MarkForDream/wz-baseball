@@ -2,7 +2,7 @@ angular.module('frontend.controller', ['frontend.factory'])
 	.controller('LayoutController', function($rootScope, $scope) {
 
 	})
-	.controller('OrderController', function($rootScope, $scope, OrderFactory) {
+	.controller('OrderController', function($state, $timeout, $rootScope, $scope, OrderFactory) {
         console.log("test");
         OrderFactory.getOrderSteps()
         	.then(function(response) {
@@ -17,5 +17,19 @@ angular.module('frontend.controller', ['frontend.factory'])
 
         $scope.processForm = function() {
         	alert(JSON.stringify($scope.formData));
+        };
+
+        $scope.nextStep = function(nextPageState) {
+            $scope.swapAnimation = "form-view-animation";
+            $timeout(function(){$state.go(nextPageState);});
+
+
+        };
+
+        $scope.previousStep = function(previousPageState) {
+            $scope.swapAnimation = "form-view-animation-reverse";
+
+            $timeout(function(){$state.go(previousPageState);});
+
         };
     });

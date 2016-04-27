@@ -8,29 +8,29 @@
 		<div class="color-group form-group">
 			<input type="radio" id="test" name="test" value="test" >
 			<label for="test" style="background-color: rgb(197, 82, 82);">
-				<div class="sample"></div>	
+				<div class="sample"></div>
 			</label>
 			<input type="radio" id="test1" name="test" value="test1">
 			<label for="test1" style="background-color: rgb(145, 61, 136);">
-				<div class="sample"></div>	
+				<div class="sample"></div>
 			</label>
 			<input type="radio" id="test2" name="test" value="test2">
 			<label for="test2" style="background-color: rgb(82, 179, 217);">
-				<div class="sample"></div>	
+				<div class="sample"></div>
 			</label>
 			<input type="radio" id="test3" name="test" value="test3">
 			<label for="test3" style="background-color: rgb(135, 211, 124);">
-				<div class="sample"></div>	
+				<div class="sample"></div>
 			</label>
 			<input type="radio" id="test4" name="test" value="test4">
 			<label for="test4" style="background-color: rgb(249, 191, 59);">
-				<div class="sample"></div>	
+				<div class="sample"></div>
 			</label>
-	
+
 		</div>
 	</div>
 	<div class="col-xs-6">
-		<img style="width: 90%" src="/frontend/images/baseball.jpg">	
+		<img style="width: 90%" src="/frontend/images/baseball.jpg">
 	</div>
 </div>
 
@@ -38,13 +38,13 @@
 
 <div class="form-group row">
 	<div class="col-xs-6">
-		<a ui-sref="frontend.newOrder.laceColor" class="btn btn-block btn-danger">
+		<button type="button" ng-click="previousStep('frontend.newOrder.laceColor')" class="btn btn-block btn-danger">
 			<span class="glyphicon glyphicon-circle-arrow-left"></span>上一步
-		</a>
+		</button>
 	</div>
 	<div class="col-xs-6">
-		<a ui-sref="frontend.newOrder.weltingColor" class="btn btn-block btn-info">
+		<button type="button" ng-click="nextStep('frontend.newOrder.weltingColor')" class="btn btn-block btn-info">
 			下一步 <span class="glyphicon glyphicon-circle-arrow-right"></span>
-		</a>
+		</button>
 	</div>
 </div>

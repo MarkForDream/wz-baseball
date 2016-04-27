@@ -7,7 +7,7 @@
 	<div class="form-group row">
 		<div class="radio-group">
 			<div class="col-sm-6">
-	
+
 				<input type="radio" ng-model="formData.leftOrRightHandThrow" id="rightHand" value="rightHand" checked>
 				<label for="rightHand">
 					<div class="thumbnail">
@@ -15,7 +15,7 @@
 						<p><strong>右投用</strong></p>
 					</div>
 				</label>
-				
+
 			</div>
 			<div class="col-sm-6">
 				<input type="radio" ng-model="formData.leftOrRightHandThrow" id="leftHand" value="leftHand">
@@ -25,9 +25,9 @@
 						<p><strong>左投用</strong></p>
 					</div>
 				</label>
-				
+
 			</div>
-			
+
 		</div>
 	</div>
 
@@ -36,7 +36,7 @@
 	<div class="form-group row">
 		<div class="radio-group">
 			<div class="col-sm-6">
-	
+
 				<input type="radio" ng-model="formData.sportType" id="baseball" value="baseball" checked>
 				<label for="baseball">
 					<div class="thumbnail">
@@ -44,7 +44,7 @@
 						<p><strong>棒球用</strong></p>
 					</div>
 				</label>
-				
+
 			</div>
 			<div class="col-sm-6">
 				<input type="radio" ng-model="formData.sportType" id="softball" value="softball">
@@ -54,9 +54,8 @@
 						<p><strong>壘球用</strong></p>
 					</div>
 				</label>
-				
+
 			</div>
-			
 		</div>
 	</div>
 </div>
@@ -64,13 +63,13 @@
 
 <div class="form-group row">
 	<div class="col-xs-6">
-		<a ui-sref="frontend.newOrder.logo" class="btn btn-block btn-danger">
+		<button type="button" ng-click="previousStep('frontend.newOrder.logo')" class="btn btn-block btn-danger">
 			<span class="glyphicon glyphicon-circle-arrow-left"></span>上一步
-		</a>
+		</button>
 	</div>
 	<div class="col-xs-6">
-		<a ui-sref="frontend.newOrder.size" class="btn btn-block btn-info">
+		<button type="button" ng-click="nextStep('frontend.newOrder.size')" class="btn btn-block btn-info">
 			下一步 <span class="glyphicon glyphicon-circle-arrow-right"></span>
-		</a>
+		</button>
 	</div>
 </div>

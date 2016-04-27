@@ -10,13 +10,13 @@
 
 <div class="form-group row">
 	<div class="col-xs-6">
-		<a ui-sref="frontend.newOrder.lining" class="btn btn-block btn-danger">
+		<button type="button" ng-click="previousStep('frontend.newOrder.lining')" class="btn btn-block btn-danger">
 			<span class="glyphicon glyphicon-circle-arrow-left"></span>上一步
-		</a>
+		</button>
 	</div>
 	<div class="col-xs-6">
-		<a ui-sref="frontend.newOrder.webStyle" class="btn btn-block btn-info">
+		<button type="button" ng-click="nextStep('frontend.newOrder.webStyle')" class="btn btn-block btn-info">
 			下一步 <span class="glyphicon glyphicon-circle-arrow-right"></span>
-		</a>
+		</button>
 	</div>
 </div>
