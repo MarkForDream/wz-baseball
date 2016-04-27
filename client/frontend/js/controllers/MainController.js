@@ -3,10 +3,10 @@ angular.module('frontend.controller', ['frontend.factory'])
 
 	})
 	.controller('OrderController', function($state, $timeout, $rootScope, $scope, OrderFactory) {
-        console.log("test");
+
         OrderFactory.getOrderSteps()
         	.then(function(response) {
-                console.log("Got response");
+                console.log("Got response:" + JSON.stringify(response));
         		// $scope.orderSteps = response.result.orderSteps;
         	})
         	.catch(function(response) {

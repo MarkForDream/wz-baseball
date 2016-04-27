@@ -4,15 +4,21 @@ angular.module('common.factory', []).factory('ApiFactory', function($q, $http) {
     factory.callApi = function(url, data, okCallback, errorCallback) {
         var defer = $q.defer();
 
-        $http.post(url, data).success(function(response) {
-            if (response.status === 'ok') {
-                if (okCallback) okCallback(response);
-                defer.resolve(response);
-            } else if (response.status === 'error') {
-                if (errorCallback) errorCallback(response);
-                defer.reject(response);
-            }
-        });
+        if (DEBUG_MODE) {
+            var dataFromMockedServer = MOCKED_SERVER.takeRequest(url);
+            if (okCallback) okCallback(dataFromMockedServer);
+            defer.resolve(dataFromMockedServer);
+        } else {
+            $http.post(url, data).success(function(response) {
+                if (response.status === 'ok') {
+                    if (okCallback) okCallback(response);
+                    defer.resolve(response);
+                } else if (response.status === 'error') {
+                    if (errorCallback) errorCallback(response);
+                    defer.reject(response);
+                }
+            });
+        }
 
         return defer.promise;
     };
