@@ -1,4 +1,4 @@
-angular.module('backend.router', ['ui.router', 'backend.factory', 'backend.controller.layout', 'backend.controller.identity']).config(function($stateProvider, $urlRouterProvider) {
+angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'backend.factory.color', 'backend.controller.layout', 'backend.controller.identity', 'backend.controller.color']).config(function($stateProvider, $urlRouterProvider) {
     var validateLogin = function($q, $state, $timeout, IdentityFactory) {
         if (IdentityFactory.validate()) {
             $timeout(function() {
@@ -61,6 +61,69 @@ angular.module('backend.router', ['ui.router', 'backend.factory', 'backend.contr
             },
             resolve: {
                 login: validateLogin
+            }
+        })
+        .state('backend.color-index', {
+            url: '/backend/color/index',
+            views: {
+                'container@': {
+                    controller: 'ColorIndexController',
+                    templateUrl: '/backend/views/color/index.html'
+                }
+            },
+            resolve: {
+                logout: validateLogout,
+                colors: function(ColorFactory) {
+                    return ColorFactory.getAll()
+                        .then(function(response) {
+                            return response.result.colors;
+                        })
+                        .catch(function() {
+                            return [];
+                        });
+                }
+            }
+        })
+        .state('backend.color-create', {
+            url: '/backend/color/create',
+            views: {
+                'container@': {
+                    controller: 'ColorFormController',
+                    templateUrl: '/backend/views/color/form.html'
+                }
+            },
+            resolve: {
+                logout: validateLogout,
+                isNewRecord: function() {
+                    return true;
+                },
+                color: function() {
+                    return {};
+                }
+            }
+        })
+        .state('backend.color-update', {
+            url: '/backend/color/update/:_id',
+            views: {
+                'container@': {
+                    controller: 'ColorFormController',
+                    templateUrl: '/backend/views/color/form.html'
+                }
+            },
+            resolve: {
+                logout: validateLogout,
+                isNewRecord: function() {
+                    return false;
+                },
+                color: function($stateParams, ColorFactory) {
+                    return ColorFactory.getById($stateParams._id)
+                        .then(function(response) {
+                            return response.result.color;
+                        })
+                        .catch(function() {
+                            return {};
+                        });
+                }
             }
         });
 });

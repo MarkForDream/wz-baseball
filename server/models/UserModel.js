@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var jsonwebtoken = require('jsonwebtoken');
 var bcryptNodejs = require('bcrypt-nodejs');
 var timeBehavior = require('server/plugins/timeBehavior');
+var config = require('server/config/main');
 
 var UserSchema = mongoose.Schema({
     name: String,
@@ -30,7 +31,7 @@ UserSchema.methods.generateJWT = function() {
         name: this.name,
         email: this.email,
         expiration: parseInt(expiration.getTime() / 1000)
-    }, 'WZBASEBALL');
+    }, config.tokenSecret);
 };
 
 module.exports = mongoose.model('User', UserSchema);

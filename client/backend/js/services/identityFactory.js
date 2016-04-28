@@ -1,4 +1,4 @@
-angular.module('backend.factory', ['common.factory']).factory('IdentityFactory', function($window, $rootScope, ApiFactory) {
+angular.module('backend.factory.identity', ['common.factory']).factory('IdentityFactory', function($window, $rootScope, ApiFactory) {
     var factory = {};
 
     factory.getToken = function() {
@@ -37,7 +37,7 @@ angular.module('backend.factory', ['common.factory']).factory('IdentityFactory',
                 factory.saveToken(response.result.token);
                 $rootScope.identity = {'status': true, 'email': user.email};
             }
-        )
+        );
     };
 
     factory.logout = function(callback) {
