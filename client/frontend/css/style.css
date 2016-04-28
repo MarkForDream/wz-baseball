@@ -57,8 +57,9 @@ div.required > label::after {
 
 #signup-form {
 	position: relative;
-	min-height: 300px;
-	overflow: hidden;
+	height: 60vh;
+	/*min-height: 300px;*/
+	overflow: auto;
 	padding: 30px;
 }
 
@@ -66,8 +67,8 @@ div.required > label::after {
 	width: auto;
 }
 
-#form-views.ng-enter,
-#form-views.ng-leave {
+.form-view-animation.ng-enter,
+.form-view-animation.ng-leave {
 	position: absolute;
 	left: 30px;
 	right: 30px;
@@ -76,16 +77,38 @@ div.required > label::after {
 	-webkit-transition: 0.5s all ease;
 }
 
-#form-views.ng-enter {
+.form-view-animation.ng-enter {
 	-webkit-animation: slideInRight 0.5s both ease;
 	-moz-animation: slideInRight 0.5s both ease;
 	animation: slideInRight 0.5s both ease;
 }
 
-#form-views.ng-leave {
+.form-view-animation.ng-leave {
 	-webkit-animation: slideOutLeft 0.5s both ease;
 	-moz-animation: slideOutLeft 0.5s both ease;
 	animation: slideOutLeft 0.5s both ease;
+}
+
+.form-view-animation-reverse.ng-enter,
+.form-view-animation-reverse.ng-leave {
+	position: absolute;
+	left: 30px;
+	right: 30px;
+	transition: 0.5s all ease;
+	-moz-transition: 0.5s all ease;
+	-webkit-transition: 0.5s all ease;
+}
+
+.form-view-animation-reverse.ng-enter {
+	-webkit-animation: slideInLeft 0.5s both ease;
+	-moz-animation: slideInLeft 0.5s both ease;
+	animation: slideInLeft 0.5s both ease;
+}
+
+.form-view-animation-reverse.ng-leave {
+	-webkit-animation: slideOutRight 0.5s both ease;
+	-moz-animation: slideOutRight 0.5s both ease;
+	animation: slideOutRight 0.5s both ease;
 }
 
 @keyframes slideOutLeft {
@@ -103,6 +126,24 @@ div.required > label::after {
 @-webkit-keyframes slideOutLeft {
 	to {
 		-webkit-transform: translateX(-200%);
+	}
+}
+
+@keyframes slideOutRight {
+	to {
+		transform: translateX(200%);
+	}
+}
+
+@-moz-keyframes slideOutRight {
+	to {
+		-moz-transform: translateX(200%);
+	}
+}
+
+@-webkit-keyframes slideOutRight {
+	to {
+		-webkit-transform: translateX(200%);
 	}
 }
 
@@ -129,6 +170,36 @@ div.required > label::after {
 @-webkit-keyframes slideInRight {
 	from {
 		-webkit-transform: translateX(200%);
+	}
+
+	to {
+		-webkit-transform: translateX(0);
+	}
+}
+
+@keyframes slideInLeft {
+	from {
+		transform: translateX(-200%);
+	}
+
+	to {
+		transform: translateX(0);
+	}
+}
+
+@-moz-keyframes slideInLeft {
+	from {
+		-moz-transform: translateX(-200%);
+	}
+
+	to {
+		-moz-transform: translateX(0);
+	}
+}
+
+@-webkit-keyframes slideInLeft {
+	from {
+		-webkit-transform: translateX(-200%);
 	}
 
 	to {
@@ -248,5 +319,3 @@ h3 .step {
 	transform: scale(1.5);
 	border-radius: 3px;
 }
-
-
