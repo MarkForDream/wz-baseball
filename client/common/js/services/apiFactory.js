@@ -6,6 +6,7 @@ angular.module('common.factory', []).factory('ApiFactory', function($q, $http) {
 
         if (DEBUG_MODE) {
             var dataFromMockedServer = MOCKED_SERVER.takeRequest(url);
+
             if (okCallback) okCallback(dataFromMockedServer);
             defer.resolve(dataFromMockedServer);
         } else {

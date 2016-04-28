@@ -1,4 +1,4 @@
-angular.module('backend.controller.identity', ['backend.factory']).controller('IdentityController', function($scope, $state, toasty, IdentityFactory) {
+angular.module('backend.controller.identity', ['backend.factory.identity']).controller('IdentityController', function($scope, $state, toasty, IdentityFactory) {
     $scope.loginFormSubmit = function() {
         $scope.loginForm.$setPristine();
 

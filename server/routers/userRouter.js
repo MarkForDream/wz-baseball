@@ -1,5 +1,4 @@
 var userMiddleware = require('server/middlewares/userMiddleware');
-var config = require('server/config/main');
 
 module.exports = function(express, passport) {
     var router = express.Router();

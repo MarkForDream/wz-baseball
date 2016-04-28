@@ -8,9 +8,10 @@ var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var config = require('server/config/main');
 var userRouter = require('server/routers/userRouter');
+var colorRouter = require('server/routers/colorRouter');
+var orderRouter = require('server/routers/orderRouter');
 var app = express();
 var server = http.createServer(app);
-var orderRouter = require('./server/routers/orderRouter');
 
 mongoose.connect(config.dbUrl);
 app.use(bodyParser.json());
@@ -19,7 +20,7 @@ app.use(expressValidator(require('server/validators/custom')));
 app.use(express.static(__dirname + '/client'));
 app.use(passport.initialize());
 app.use('/api', userRouter(express, require('server/config/passport')(passport)));
-
+app.use('/api', colorRouter(express));
 app.use('/api', orderRouter(express));
 
 server.listen(config.port, function() {
