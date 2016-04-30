@@ -36,6 +36,9 @@ angular.module('backend.factory.identity', ['common.factory']).factory('Identity
             function(response) {
                 factory.saveToken(response.result.token);
                 $rootScope.identity = {'status': true, 'email': user.email};
+            },
+            function(error) {
+                console.log(JSON.stringify(error));
             }
         );
     };

@@ -1,1 +1,1 @@
-var DEBUG_MODE = true;
+var DEBUG_MODE = false;
