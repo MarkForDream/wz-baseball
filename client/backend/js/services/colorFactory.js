@@ -1,23 +1,22 @@
-angular.module('backend.factory.color', ['common.factory', 'backend.factory.identity']).factory('ColorFactory', function(ApiFactory, IdentityFactory) {
+angular.module('backend.factory.color', ['common.factory']).factory('ColorFactory', function(ApiFactory) {
     var factory = {};
 
     factory.getById = function(_id) {
-        return ApiFactory.callApi('/api/backend/color/getById', {'token': IdentityFactory.getToken(), '_id': _id});
-    }
+        return ApiFactory.callApi('/api/backend/color/getById', {'_id': _id}, true);
+    };
 
     factory.getAll = function() {
-        return ApiFactory.callApi('/api/backend/color/getAll', {'token': IdentityFactory.getToken()});
-    }
+        return ApiFactory.callApi('/api/backend/color/getAll', {}, true);
+    };
 
     factory.delete = function(_id) {
-        return ApiFactory.callApi('/api/backend/color/delete', {'token': IdentityFactory.getToken(), '_id': _id});
-    }
+        return ApiFactory.callApi('/api/backend/color/delete', {'_id': _id}, true);
+    };
 
     factory.submit = function(color, isNewRecord) {
-        color.token = IdentityFactory.getToken();
 
-        if (isNewRecord) return ApiFactory.callApi('/api/backend/color/create', color);
-        else return ApiFactory.callApi('/api/backend/color/update', color);
+        if (isNewRecord) return ApiFactory.callApi('/api/backend/color/create', color, true);
+        else return ApiFactory.callApi('/api/backend/color/update', color, true);
     };
 
     return factory;

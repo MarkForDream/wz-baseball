@@ -1,15 +1,20 @@
-angular.module('common.factory', []).factory('ApiFactory', function($q, $http) {
+angular.module('common.factory', []).factory('ApiFactory', function($window, $q, $http) {
     var factory = {};
 
-    factory.callApi = function(url, data, okCallback, errorCallback) {
+    factory.callApi = function(url, data, isRequiredAuth, okCallback, errorCallback) {
+
+        if (isRequiredAuth) {
+            data.token = $window.localStorage['wz-baseball-token'];
+        }
+
         var defer = $q.defer();
 
-        // if (DEBUG_MODE) {
-        //     var dataFromMockedServer = MOCKED_SERVER.takeRequest(url);
+        if (DEBUG_MODE) {
+            var dataFromMockedServer = MOCKED_SERVER.takeRequest(url);
 
-        //     if (okCallback) okCallback(dataFromMockedServer);
-        //     defer.resolve(dataFromMockedServer);
-        // } else {
+            if (okCallback) okCallback(dataFromMockedServer);
+            defer.resolve(dataFromMockedServer);
+        } else {
             $http.post(url, data).success(function(response) {
                 if (response.status === 'ok') {
                     if (okCallback) okCallback(response);
@@ -19,7 +24,7 @@ angular.module('common.factory', []).factory('ApiFactory', function($q, $http) {
                     defer.reject(response);
                 }
             });
-        // }
+        }
 
         return defer.promise;
     };
