@@ -152,7 +152,7 @@ angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'back
             views: {
                 'container@': {
                     controller: 'LogoFormController',
-                    templateUrl: '/backend/views/logo/form.html'
+                    templateUrl: '/backend/views/logo/create.html'
                 }
             },
             resolve: {
@@ -170,7 +170,7 @@ angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'back
             views: {
                 'container@': {
                     controller: 'LogoFormController',
-                    templateUrl: '/backend/views/logo/form.html'
+                    templateUrl: '/backend/views/logo/update.html'
                 }
             },
             resolve: {

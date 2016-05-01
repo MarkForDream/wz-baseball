@@ -20,13 +20,7 @@ angular.module('backend.controller.logo', ['backend.factory.logo'])
         };
     })
     .controller('LogoFormController', function($scope, $state, $stateParams, Upload, toasty, logo, isNewRecord, LogoFactory) {
-        if (!isNewRecord) {
-            if ($.isEmptyObject(logo)) $state.go('backend.logo-create');
-
-            $scope.formTitle = '布標更新';
-        } else {
-            $scope.formTitle = '布標新增';
-        }
+        if (!isNewRecord && $.isEmptyObject(logo)) $state.go('backend.logo-create');
 
         $scope.logo = logo;
 
@@ -35,13 +29,9 @@ angular.module('backend.controller.logo', ['backend.factory.logo'])
 
             Upload.base64DataUrl(imgModel)
                 .then(function(imgBase64DataUrl) {
-                    var logoObject = {};
+                    if (imgBase64DataUrl) $scope.logo.img = imgBase64DataUrl;
 
-                    if ($scope.logo.title) logoObject.title = $scope.logo.title;
-                    if (imgBase64DataUrl) logoObject.img = imgBase64DataUrl;
-                    if ($scope.logo.description) logoObject.description = $scope.logo.description;
-
-                    LogoFactory.submit(logoObject, isNewRecord)
+                    LogoFactory.submit($scope.logo, isNewRecord)
                         .then(function(response) {
                             $state.go('backend.logo-index')
                                 .then(function() {
