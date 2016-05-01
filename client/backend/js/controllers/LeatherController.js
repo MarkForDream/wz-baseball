@@ -1,11 +1,11 @@
-angular.module('backend.controller.logo', [])
-    .controller('LogoIndexController', function($scope, toasty, logos, LogoFactory) {
-        $scope.logos = logos;
+angular.module('backend.controller.leather', [])
+    .controller('LeatherIndexController', function($scope, toasty, leathers, LeatherFactory) {
+        $scope.leathers = leathers;
 
         $scope.delete = function(index, _id) {
-            LogoFactory.delete(_id)
+            LeatherFactory.delete(_id)
                 .then(function(response) {
-                    $scope.logos.splice(index, 1);
+                    $scope.leathers.splice(index, 1);
 
                     toasty.success({
                         title: response.result.msg
@@ -19,28 +19,29 @@ angular.module('backend.controller.logo', [])
                 });
         };
     })
-    .controller('LogoFormController', function($scope, $state, $stateParams, Upload, toasty, logo, isNewRecord, LogoFactory) {
+    .controller('LeatherFormController', function($scope, $state, $stateParams, Upload, toasty, leather, isNewRecord, LeatherFactory) {
         if (!isNewRecord) {
-            if ($.isEmptyObject(logo)) $state.go('backend.logo-create');
+            if ($.isEmptyObject(leather)) $state.go('backend.leather-create');
 
-            $scope.formTitle = '布標更新';
+            $scope.formTitle = '皮革更新';
         } else {
-            $scope.formTitle = '布標新增';
+            $scope.formTitle = '皮革新增';
         }
 
-        $scope.logo = logo;
+        $scope.leather = leather;
 
-        $scope.logoFormSubmit = function(imgModel) {
-            $scope.logoForm.$setPristine();
+        $scope.leatherFormSubmit = function(imgModel) {
+            $scope.leatherForm.$setPristine();
 
             Upload.base64DataUrl(imgModel)
                 .then(function(imgBase64DataUrl) {
+                    console.log("base64:" + imgBase64DataUrl);
+                    if (imgBase64DataUrl) $scope.leather.img = imgBase64DataUrl;
 
-                    if (imgBase64DataUrl) $scope.logo.img = imgBase64DataUrl;
-
-                    LogoFactory.submit($scope.logo, isNewRecord)
+                    LeatherFactory.submit($scope.leather, isNewRecord)
                         .then(function(response) {
-                            $state.go('backend.logo-index')
+
+                            $state.go('backend.leather-index')
                                 .then(function() {
                                     toasty.success({
                                         title: response.result.msg

@@ -10,6 +10,7 @@ var config = require('server/config/main');
 var userRouter = require('server/routers/userRouter');
 var colorRouter = require('server/routers/colorRouter');
 var logoRouter = require('server/routers/logoRouter');
+var leatherRouter = require('server/routers/leatherRouter');
 var orderRouter = require('server/routers/orderRouter');
 var app = express();
 var server = http.createServer(app);
@@ -23,6 +24,7 @@ app.use(passport.initialize());
 app.use('/api', userRouter(express, require('server/config/passport')(passport)));
 app.use('/api', colorRouter(express));
 app.use('/api', logoRouter(express));
+app.use('/api', leatherRouter(express));
 app.use('/api', orderRouter(express));
 
 server.listen(config.port, function() {
