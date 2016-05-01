@@ -1,0 +1,40 @@
+<h1>皮革列表</h1>
+<a class="btn btn-success" ui-sref="backend.leather-create" role="button">皮革新增</a>
+<table st-table="leathers" class="table">
+	<thead>
+		<tr>
+			<th>標題</th>
+			<th>圖片</th>
+			<th>描述</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="leather in leathers">
+			<td class="vertical-align-middle">
+				{{leather.title}}
+			</td>
+			<td class="vertical-align-middle">
+				<img width="100px" ng-src="{{leather.img}}" alt="{{leather.title}}" class="img-thumbnail">
+			</td>
+			<td class="vertical-align-middle">
+				{{leather.description}}
+			</td>
+			<td class="vertical-align-middle">
+				<a class="btn btn-sm btn-primary" title="更新" ui-sref="backend.leather-update({_id: leather._id})">
+					<span class="glyphicon glyphicon-pencil"></span>
+				</a>
+				<button class="btn btn-sm btn-danger" title="刪除" ng-click="delete($index, leather._id)">
+					<span class="glyphicon glyphicon-trash"></span>
+				</button>
+			</td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="5" class="text-center">
+				<div st-pagination="" st-items-by-page="10" st-displayed-pages="10"></div>
+			</td>
+		</tr>
+	</tfoot>
+</table>

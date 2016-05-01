@@ -3,7 +3,7 @@ angular.module('frontend.factory', ['common.factory'])
         var factory = {};
 
         factory.getOrderSteps = function() {
-            return ApiFactory.callApi('/api/frontend/getOrderSteps', null, function(response) {
+            return ApiFactory.callApi('/api/frontend/getOrderSteps', null, false, function(response) {
                 console.log("Successfully getOrderSteps");
             }, function(response) {
                 console.log("Fail to getOrderSteps");

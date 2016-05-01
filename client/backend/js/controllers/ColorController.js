@@ -1,4 +1,4 @@
-angular.module('backend.controller.color', ['backend.factory.color'])
+angular.module('backend.controller.color', [])
     .controller('ColorIndexController', function($scope, toasty, colors, ColorFactory) {
         $scope.colors = colors;
 

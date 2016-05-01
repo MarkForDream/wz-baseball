@@ -1,4 +1,4 @@
-angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'backend.factory.color', 'backend.factory.logo', 'backend.controller.layout', 'backend.controller.identity', 'backend.controller.color', 'backend.controller.logo']).config(function($stateProvider, $urlRouterProvider) {
+angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'backend.factory.color', 'backend.factory.leather', 'backend.factory.logo', 'backend.controller.layout', 'backend.controller.identity', 'backend.controller.color', 'backend.controller.logo', 'backend.controller.leather']).config(function($stateProvider, $urlRouterProvider) {
     var validateLogin = function($q, $state, $timeout, IdentityFactory) {
         if (IdentityFactory.validate()) {
             $timeout(function() {
@@ -182,6 +182,69 @@ angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'back
                     return LogoFactory.getById($stateParams._id)
                         .then(function(response) {
                             return response.result.logo;
+                        })
+                        .catch(function() {
+                            return {};
+                        });
+                }
+            }
+        })
+        .state('backend.leather-index', {
+            url: '/backend/leather/index',
+            views: {
+                'container@': {
+                    controller: 'LeatherIndexController',
+                    templateUrl: '/backend/views/leather/index.html'
+                }
+            },
+            resolve: {
+                logout: validateLogout,
+                leathers: function(LeatherFactory) {
+                    return LeatherFactory.getAll()
+                        .then(function(response) {
+                            return response.result.leathers;
+                        })
+                        .catch(function() {
+                            return [];
+                        });
+                }
+            }
+        })
+        .state('backend.leather-create', {
+            url: '/backend/leather/create',
+            views: {
+                'container@': {
+                    controller: 'LeatherFormController',
+                    templateUrl: '/backend/views/leather/form.html'
+                }
+            },
+            resolve: {
+                logout: validateLogout,
+                isNewRecord: function() {
+                    return true;
+                },
+                leather: function() {
+                    return {};
+                }
+            }
+        })
+        .state('backend.leather-update', {
+            url: '/backend/leather/update/:_id',
+            views: {
+                'container@': {
+                    controller: 'LeatherFormController',
+                    templateUrl: '/backend/views/leather/form.html'
+                }
+            },
+            resolve: {
+                logout: validateLogout,
+                isNewRecord: function() {
+                    return false;
+                },
+                leather: function($stateParams, LeatherFactory) {
+                    return LeatherFactory.getById($stateParams._id)
+                        .then(function(response) {
+                            return response.result.leather;
                         })
                         .catch(function() {
                             return {};

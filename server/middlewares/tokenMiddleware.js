@@ -28,7 +28,6 @@ module.exports = {
             ],
             function(error) {
                 if (error) return response.json(error);
-
                 return next();
             }
         );
