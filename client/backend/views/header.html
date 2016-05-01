@@ -15,6 +15,14 @@
 				<li class="pointer"><a ui-sref="backend.login">登入</a></li>
 			</ul>
 			<ul ng-if="identity.status" class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          				Step上稿 <span class="caret"></span>
+          			</a>
+					<ul class="dropdown-menu">
+            			<li><a ui-sref="backend.logo-index">布標列表</a></li>
+          			</ul>
+        		</li>
 				<li class="pointer"><a ui-sref="backend.color-index">顏色列表</a></li>
 				<li class="pointer"><a ng-click="logout()">林蔭(登出)</a></li>
 			</ul>

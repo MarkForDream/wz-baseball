@@ -45,7 +45,7 @@ module.exports = {
                 });
             })
             .catch(function(errors) {
-                return response.json({'status': 'error', 'result': {'errorCode': 4, 'errorMsg': '顏色標題或顏色色碼請正確填寫'}});
+                return response.json({'status': 'error', 'result': {'errorCode': 4, 'errorMsg': '標題或色碼請正確填寫'}});
             });
     },
     update: function(request, response, next) {
@@ -72,7 +72,7 @@ module.exports = {
                 });
             })
             .catch(function(errors) {
-                return response.json({'status': 'error', 'result': {'errorCode': 4, 'errorMsg': '顏色標題或顏色色碼請正確填寫'}});
+                return response.json({'status': 'error', 'result': {'errorCode': 4, 'errorMsg': '標題或色碼請正確填寫'}});
             });
     }
 };

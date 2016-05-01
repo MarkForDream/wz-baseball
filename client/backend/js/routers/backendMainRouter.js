@@ -1,4 +1,4 @@
-angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'backend.factory.color', 'backend.controller.layout', 'backend.controller.identity', 'backend.controller.color']).config(function($stateProvider, $urlRouterProvider) {
+angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'backend.factory.color', 'backend.factory.logo', 'backend.controller.layout', 'backend.controller.identity', 'backend.controller.color', 'backend.controller.logo']).config(function($stateProvider, $urlRouterProvider) {
     var validateLogin = function($q, $state, $timeout, IdentityFactory) {
         if (IdentityFactory.validate()) {
             $timeout(function() {
@@ -119,6 +119,69 @@ angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'back
                     return ColorFactory.getById($stateParams._id)
                         .then(function(response) {
                             return response.result.color;
+                        })
+                        .catch(function() {
+                            return {};
+                        });
+                }
+            }
+        })
+        .state('backend.logo-index', {
+            url: '/backend/logo/index',
+            views: {
+                'container@': {
+                    controller: 'LogoIndexController',
+                    templateUrl: '/backend/views/logo/index.html'
+                }
+            },
+            resolve: {
+                logout: validateLogout,
+                logos: function(LogoFactory) {
+                    return LogoFactory.getAll()
+                        .then(function(response) {
+                            return response.result.logos;
+                        })
+                        .catch(function() {
+                            return [];
+                        });
+                }
+            }
+        })
+        .state('backend.logo-create', {
+            url: '/backend/logo/create',
+            views: {
+                'container@': {
+                    controller: 'LogoFormController',
+                    templateUrl: '/backend/views/logo/form.html'
+                }
+            },
+            resolve: {
+                logout: validateLogout,
+                isNewRecord: function() {
+                    return true;
+                },
+                logo: function() {
+                    return {};
+                }
+            }
+        })
+        .state('backend.logo-update', {
+            url: '/backend/logo/update/:_id',
+            views: {
+                'container@': {
+                    controller: 'LogoFormController',
+                    templateUrl: '/backend/views/logo/form.html'
+                }
+            },
+            resolve: {
+                logout: validateLogout,
+                isNewRecord: function() {
+                    return false;
+                },
+                logo: function($stateParams, LogoFactory) {
+                    return LogoFactory.getById($stateParams._id)
+                        .then(function(response) {
+                            return response.result.logo;
                         })
                         .catch(function() {
                             return {};
