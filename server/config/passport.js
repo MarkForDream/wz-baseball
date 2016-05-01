@@ -15,6 +15,7 @@ module.exports = function(passport) {
 
     passport.use('login', new LocalStrategy({usernameField: 'email', passwordField: 'password', passReqToCallback: true}, function(request, email, password, done) {
         process.nextTick(function() {
+            console.log("Email::" + email);
             UserModel.findOne({'email': email}, function(error, user) {
                 if (error) return done(config.systemError);
 
@@ -33,7 +34,7 @@ module.exports = function(passport) {
                 if (error) return response.json(error);
 
                 request.login(user, function(error) {
-                    if (error) return response.json(config.systemError);
+                    if (error) return response.json({'status': 'error', 'result': {'errorMsg': config.systemError}});
 
                     return response.json({'status': 'ok', 'result': {'token': user.generateJWT()}});
                 });
