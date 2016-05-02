@@ -59,8 +59,8 @@ module.exports = {
 
         request.asyncValidationErrors()
             .then(function() {
-                ColorModel.findById(request.body._id, function(error, color) {
-                    if (error) return response.json(config.systemError);
+                ColorModel.findById(body._id, function(error, color) {
+                    if (error || !color) return response.json(config.systemError);
 
                     color.title = body.title;
                     color.color_code = body.color_code;
