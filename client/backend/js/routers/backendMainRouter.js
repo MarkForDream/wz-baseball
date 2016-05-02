@@ -223,7 +223,21 @@ angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'back
                 isNewRecord: function() {
                     return true;
                 },
+                colors: function(ColorFactory) {
+                    return ColorFactory.getAll()
+                        .then(function(response) {
+
+                            return response.result.colors;
+                        })
+                        .catch(function(error) {
+
+                            return [];
+                        });
+
+                    return true;
+                },
                 leather: function() {
+
                     return {};
                 }
             }
@@ -240,6 +254,19 @@ angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'back
                 logout: validateLogout,
                 isNewRecord: function() {
                     return false;
+                },
+                colors: function(ColorFactory) {
+                    return ColorFactory.getAll()
+                        .then(function(response) {
+
+                            return response.result.colors;
+                        })
+                        .catch(function(error) {
+
+                            return [];
+                        });
+
+                    return true;
                 },
                 leather: function($stateParams, LeatherFactory) {
                     return LeatherFactory.getById($stateParams._id)

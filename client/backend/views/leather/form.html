@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" style="height: 90vh; overflow: auto;">
     <div class="col-xs-12">
         <h1>{{formTitle}}</h1>
         <form ng-submit="leatherForm.$valid && leatherFormSubmit(imgModel)" name="leatherForm" novalidate>
@@ -33,11 +33,52 @@
                     <div ng-messages-include="errorMessages.html"></div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-warning btn-lg" ng-disabled="
-                (leatherForm.$valid && leatherForm.$submitted) || leatherForm.$pristine || leatherForm.$invalid
-            ">
-                新增
-            </button>
+            <div class="form-group required" ng-form="colors" ng-class="{
+                'has-success': colors.$valid && (!colors.$pristine || leatherForm.$submitted),
+                'has-error': colors.$invalid && (!colors.$pristine || leatherForm.$submitted)
+            }">
+                <label for="colors">顏色</label>
+                <table st-table="availabeColors" class="table color-table">
+                    <thead>
+                        <tr>
+                            <th>打勾新增</th>
+                            <th>顏色</th>
+                            <th>色碼</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="availableColor in availabeColors">
+                            <td class="vertical-align-middle">
+                                <md-checkbox ng-checked="isColorChecked(availableColor, leather.selectedColors)" ng-click="toggle(availableColor, leather.selectedColors)">
+                                </md-checkbox>
+                            </td>
+                            <td class="vertical-align-middle">
+                                {{ availableColor.title }}
+                            </td>
+                            <td class="vertical-align-middle">
+                                <div ng-style="{backgroundColor: availableColor.color_code}" class="thumbnail border-font">{{availableColor.color_code}}</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+
+                        <tr>
+                            <td>
+                                <button type="submit" class="btn btn-warning btn-lg"
+                                    ng-disabled="(leatherForm.$valid && leatherForm.$submitted) || leatherForm.$pristine || leatherForm.$invalid || leather.selectedColors.length == 0">
+                                    新增
+                                </button>
+                            </td>
+                            <td colspan="5" class="text-right">
+                                <div st-pagination="" st-items-by-page="4" st-displayed-pages="10"></div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+            </div>
+
         </form>
     </div>
 </div>

@@ -19,23 +19,40 @@ angular.module('backend.controller.leather', [])
                 });
         };
     })
-    .controller('LeatherFormController', function($scope, $state, $stateParams, Upload, toasty, leather, isNewRecord, LeatherFactory) {
+    .controller('LeatherFormController', function($scope, $state, $stateParams, Upload, toasty, colors, leather, isNewRecord, LeatherFactory) {
+
+        $scope.leather = leather;
+        $scope.availabeColors = colors;
+        $scope.leather.selectedColors = [];
+
         if (!isNewRecord) {
             if ($.isEmptyObject(leather)) $state.go('backend.leather-create');
 
             $scope.formTitle = '皮革更新';
+
         } else {
             $scope.formTitle = '皮革新增';
         }
 
-        $scope.leather = leather;
+        $scope.toggle = function(color, selectedColors) {
+            var toggledColorId = selectedColors.indexOf(color);
+            if (toggledColorId > -1) {
+                selectedColors.splice(toggledColorId, 1);
+            } else {
+                selectedColors.push(color);
+            }
+
+        };
+
+        $scope.isColorChecked = function(color, selectedColors) {
+            return selectedColors.indexOf(color) > -1;
+        };
 
         $scope.leatherFormSubmit = function(imgModel) {
             $scope.leatherForm.$setPristine();
 
             Upload.base64DataUrl(imgModel)
                 .then(function(imgBase64DataUrl) {
-                    console.log("base64:" + imgBase64DataUrl);
                     if (imgBase64DataUrl) $scope.leather.img = imgBase64DataUrl;
 
                     LeatherFactory.submit($scope.leather, isNewRecord)

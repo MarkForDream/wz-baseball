@@ -37,13 +37,25 @@ module.exports = {
         request.asyncValidationErrors()
             .then(function() {
                 var leather = new LeatherModel();
-
+                // console.log("body:::" + JSON.stringify(body));
                 leather.title = body.title;
                 leather.img = body.img;
                 leather.description = body.description || '';
-                leather.save(function(error) {
-                    if (error) return response.json(config.systemError);
 
+                leather.colors = [];
+                body.selectedColors.map(function(selectedColor) {
+                    leather.colors.push({
+                        _id: selectedColor._id,
+                        colorTitle: selectedColor.title,
+                        colorCode: selectedColor.color_code
+                    });
+                });
+
+                leather.save(function(error) {
+                    if (error) {
+
+                        return response.json(config.systemError);
+                    }
                     return response.json({'status': 'ok', 'result': {'msg': '皮革新增成功'}});
                 });
             })
@@ -52,6 +64,43 @@ module.exports = {
             });
     },
     update: function(request, response, next) {
+        var body = request.body;
 
+        request.sanitizeBody('title').toString();
+        request.sanitizeBody('img').toString();
+        request.sanitizeBody('description').toString();
+
+        request.checkBody('title', '此欄位不可為空白').notEmpty();
+        request.checkBody('img', '此欄位不可為空白').notEmpty();
+        request.checkBody('img', '圖片格式請正確上傳').validateImg();
+
+        request.asyncValidationErrors()
+            .then(function() {
+                LeatherModel.findById(request.body._id, function(error, leather) {
+                    if (error) return response.json(config.systemError);
+
+                    leather.title = body.title;
+                    leather.img = body.img;
+                    leather.description = body.description || '';
+
+                    leather.colors = [];
+                    body.selectedColors.map(function(selectedColor) {
+                        leather.colors.push({
+                            _id: selectedColor._id,
+                            colorTitle: selectedColor.title,
+                            colorCode: selectedColor.color_code
+                        });
+                    });
+
+                    leather.save(function(error) {
+                        if (error) return response.json(config.systemError);
+
+                        return response.json({'status': 'ok', 'result': {'msg': '皮革更新成功'}});
+                    });
+                });
+            })
+            .catch(function(errors) {
+                return response.json({'status': 'error', 'result': {'errorCode': 4, 'errorMsg': '標題或圖片請正確填寫'}});
+            });
     }
 };
