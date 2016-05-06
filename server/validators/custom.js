@@ -19,6 +19,9 @@ module.exports = {
 
             return true;
         },
+        notEmptyArray: function(value) {
+            return Array.isArray(value) && value.length > 0;
+        },
         validateEmail: function(value) {
             if (value) return config.emailValidator.test(value);
 
@@ -33,10 +36,7 @@ module.exports = {
             if (value) {
                 var imgParser = value.split(',');
 
-                if (imgParser.length === 2 && (imgParser[0] === 'data:image/jpeg;base64' || imgParser[0] === 'data:image/png;base64')) {
-                    return validator.isBase64(imgParser[1]);
-                }
-
+                if (imgParser.length === 2 && (imgParser[0] === 'data:image/jpeg;base64' || imgParser[0] === 'data:image/png;base64')) return validator.isBase64(imgParser[1]);
             }
 
             return false;

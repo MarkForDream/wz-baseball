@@ -14,7 +14,6 @@ angular.module('backend.factory.color', ['common.factory']).factory('ColorFactor
     };
 
     factory.submit = function(color, isNewRecord) {
-
         if (isNewRecord) return ApiFactory.callApi('/api/backend/color/create', color, true);
         else return ApiFactory.callApi('/api/backend/color/update', color, true);
     };

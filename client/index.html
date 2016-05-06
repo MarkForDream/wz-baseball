@@ -6,7 +6,7 @@
 	<meta content="IE=edge" http-equiv="X-UA-Compatible">
 	<meta content="width=device-width, initial-scale=1" name="viewport">
 	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="bower_components/angular-toasty/dist/angular-toasty.css">
+	<link rel="stylesheet" href="/bower_components/angular-toasty/dist/angular-toasty.css">
 </head>
 <body>
 	<header class="header">
@@ -31,13 +31,13 @@
 	<script src="/bower_components/angular-toasty/dist/angular-toasty.min.js"></script>
 	<script src="/bower_components/angular-smart-table/dist/smart-table.min.js"></script>
 	<script src="/bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min.js"></script>
-
 	<script src="/common/js/debugMode.js"></script>
 	<script src="/common/js/testData.js"></script>
-
+	<script src="/common/js/config/toastyConfig.js"></script>
 	<script src="/common/js/routers/errorRouter.js"></script>
 	<script src="/common/js/services/apiFactory.js"></script>
-	<script src="/common/js/config/toastyConfig.js"></script>
+	<script src="/common/js/directives/validateEmail.js"></script>
+	<script src="/backend/js/config/main.js"></script>
 	<script src="/backend/js/routers/backendMainRouter.js"></script>
 	<script src="/backend/js/controllers/LayoutController.js"></script>
 	<script src="/backend/js/controllers/IdentityController.js"></script>
@@ -45,12 +45,16 @@
 	<script src="/backend/js/controllers/LogoController.js"></script>
 	<script src="/backend/js/controllers/LeatherController.js"></script>
 	<script src="/backend/js/controllers/BindController.js"></script>
+	<script src="/backend/js/controllers/ModelController.js"></script>
+	<script src="/backend/js/controllers/SizeController.js"></script>
 	<script src="/backend/js/services/identityFactory.js"></script>
 	<script src="/backend/js/services/colorFactory.js"></script>
 	<script src="/backend/js/services/logoFactory.js"></script>
 	<script src="/backend/js/services/leatherFactory.js"></script>
 	<script src="/backend/js/services/bindFactory.js"></script>
 	<script src="/backend/js/directives/validateEmail.js"></script>
+	<script src="/backend/js/services/modelFactory.js"></script>
+	<script src="/backend/js/services/sizeFactory.js"></script>
 	<script src="/frontend/js/routers/frontendMainRouter.js"></script>
 	<script src="/frontend/js/controllers/MainController.js"></script>
 	<script src="/frontend/js/services/orderFactory.js"></script>

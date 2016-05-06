@@ -3,24 +3,29 @@ var config = require('server/config/main');
 
 module.exports = {
     getById: function(request, response, next) {
-        ColorModel.findById(request.body._id, {'created_at': false, 'updated_at': false, '__v': false}, function(error, color) {
-            if (error) return response.json(config.systemError);
+        ColorModel.findOne({'_id': request.body._id, 'is_deleted': false}, {'created_at': false, 'updated_at': false, '__v': false}, function(error, color) {
+            if (error || !color) return response.json(config.systemError);
 
             return response.json({'status': 'ok', 'result': {'color': color}});
         });
     },
     getAll: function(request, response, next) {
-        ColorModel.find({}, {'created_at': false, 'updated_at': false, '__v': false}, {'sort': {'created_at': -1}}, function(error, colors) {
-            if (error) return response.json(config.systemError);
+        ColorModel.find({'is_deleted': false}, {'created_at': false, 'updated_at': false, '__v': false}, {'sort': {'created_at': -1}}, function(error, colors) {
+            if (error || !colors) return response.json(config.systemError);
 
             return response.json({'status': 'ok', 'result': {'colors': colors}});
         });
     },
     delete: function(request, response, next) {
-        ColorModel.remove({'_id': request.body._id}, function(error) {
-            if (error) return response.json(config.systemError);
+        ColorModel.findOne({'_id': request.body._id, 'is_deleted': false}, {'created_at': false, 'updated_at': false, '__v': false}, function(error, color) {
+            if (error || !color) return response.json(config.systemError);
 
-            return response.json({'status': 'ok', 'result': {'msg': '顏色刪除成功'}});
+            color.is_deleted = true;
+            color.save(function(error) {
+                if (error) return response.json(config.systemError);
+
+                return response.json({'status': 'ok', 'result': {'msg': '顏色刪除成功'}});
+            });
         });
     },
     create: function(request, response, next) {
@@ -38,6 +43,7 @@ module.exports = {
 
                 color.title = body.title;
                 color.color_code = body.color_code;
+                color.is_deleted = false;
                 color.save(function(error) {
                     if (error) return response.json(config.systemError);
 
@@ -59,11 +65,12 @@ module.exports = {
 
         request.asyncValidationErrors()
             .then(function() {
-                ColorModel.findById(body._id, function(error, color) {
+                ColorModel.findOne({'_id': body._id, 'is_deleted': false}, {'created_at': false, 'updated_at': false, '__v': false}, function(error, color) {
                     if (error || !color) return response.json(config.systemError);
 
                     color.title = body.title;
                     color.color_code = body.color_code;
+                    color.is_deleted = false;
                     color.save(function(error) {
                         if (error) return response.json(config.systemError);
 

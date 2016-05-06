@@ -1,33 +1,31 @@
 <link rel="stylesheet" href="/bower_components/angular-bootstrap-colorpicker/css/colorpicker.min.css">
-<div class="row">
-	<div class="col-xs-12">
-		<h1>{{formTitle}}</h1>
-		<form ng-submit="colorForm.$valid && colorFormSubmit()" name="colorForm" novalidate>
-			<div class="form-group required" ng-form="title" ng-class="{
-                'has-success': title.$valid && (!title.$pristine || colorForm.$submitted),
-                'has-error': title.$invalid && (!title.$pristine || colorForm.$submitted)
-            }">
-				<label for="title">標題</label>
-				<input type="text" placeholder="標題" class="form-control" name="title" ng-model="color.title" required>
-				<div class="error-messages" ng-messages="title.$error" ng-show="title.$invalid && (!title.$pristine || colorForm.$submitted)">
-					<div ng-messages-include="errorMessages.html"></div>
-				</div>
+<div class="col-xs-12">
+	<h1>{{formTitle}}</h1>
+	<form ng-submit="colorForm.$valid && colorFormSubmit()" name="colorForm" novalidate>
+		<div class="form-group required" ng-form="title" ng-class="{
+            'has-success': title.$valid && (!title.$pristine || colorForm.$submitted),
+            'has-error': title.$invalid && (!title.$pristine || colorForm.$submitted)
+        }">
+			<label for="title">標題</label>
+			<input type="text" placeholder="標題" class="form-control" name="title" ng-model="color.title" required>
+			<div class="error-messages" ng-messages="title.$error" ng-show="title.$invalid && (!title.$pristine || colorForm.$submitted)">
+				<div ng-messages-include="errorMessages.html"></div>
+			</div>
+        </div>
+        <div class="form-group required" ng-form="color_code" ng-class="{
+            'has-success': color_code.$valid && (!color_code.$pristine || colorForm.$submitted),
+            'has-error': color_code.$invalid && (!color_code.$pristine || colorForm.$submitted)
+        }">
+			<label for="color_code">色碼</label>
+            <input type="text" colorpicker="hex" placeholder="色碼" class="form-control" name="color_code" ng-model="color.color_code" required>
+			<div class="error-messages" ng-messages="color_code.$error" ng-show="color_code.$invalid && (!color_code.$pristine || colorForm.$submitted)">
+				<div ng-messages-include="errorMessages.html"></div>
             </div>
-            <div class="form-group required" ng-form="color_code" ng-class="{
-                'has-success': color_code.$valid && (!color_code.$pristine || colorForm.$submitted),
-                'has-error': color_code.$invalid && (!color_code.$pristine || colorForm.$submitted)
-            }">
-				<label for="color_code">色碼</label>
-                <input type="text" colorpicker="hex" placeholder="色碼" class="form-control" name="color_code" ng-model="color.color_code" required>
-				<div class="error-messages" ng-messages="color_code.$error" ng-show="color_code.$invalid && (!color_code.$pristine || colorForm.$submitted)">
-					<div ng-messages-include="errorMessages.html"></div>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-warning btn-lg" ng-disabled="
-                (colorForm.$valid && colorForm.$submitted) || colorForm.$pristine || colorForm.$invalid
-            ">
-                送出
-            </button>
-		</form>
-	</div>
+        </div>
+        <button type="submit" class="btn btn-warning btn-lg" ng-disabled="
+            (colorForm.$valid && colorForm.$submitted) || colorForm.$pristine || colorForm.$invalid
+        ">
+            送出
+        </button>
+	</form>
 </div>

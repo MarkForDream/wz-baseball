@@ -4,14 +4,14 @@ var config = require('server/config/main');
 module.exports = {
     getById: function(request, response, next) {
         LogoModel.findById(request.body._id, {'created_at': false, 'updated_at': false, '__v': false}, function(error, logo) {
-            if (error) return response.json(config.systemError);
+            if (error || !logo) return response.json(config.systemError);
 
             return response.json({'status': 'ok', 'result': {'logo': logo}});
         });
     },
     getAll: function(request, response, next) {
         LogoModel.find({}, {'created_at': false, 'updated_at': false, '__v': false}, {'sort': {'created_at': -1}}, function(error, logos) {
-            if (error) return response.json(config.systemError);
+            if (error || !logos) return response.json(config.systemError);
 
             return response.json({'status': 'ok', 'result': {'logos': logos}});
         });

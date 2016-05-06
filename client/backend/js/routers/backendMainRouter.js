@@ -1,4 +1,5 @@
-angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'backend.factory.color', 'backend.factory.leather', 'backend.factory.logo', 'backend.factory.bind', 'backend.controller.layout', 'backend.controller.identity', 'backend.controller.color', 'backend.controller.logo', 'backend.controller.leather', 'backend.controller.bind']).config(function($stateProvider, $urlRouterProvider) {
+angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'backend.factory.color', 'backend.factory.logo', 'backend.factory.leather', 'backend.factory.bind', 'backend.factory.model', 'backend.factory.size', 'backend.controller.layout', 'backend.controller.identity', 'backend.controller.color', 'backend.controller.logo', 'backend.controller.leather', 'backend.controller.model', 'backend.controller.size', 'backend.controller.bind']).config(function($stateProvider, $urlRouterProvider) {
+
     var validateLogin = function($q, $state, $timeout, IdentityFactory) {
         if (IdentityFactory.validate()) {
             $timeout(function() {
@@ -9,7 +10,7 @@ angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'back
         } else {
             return $q.when();
         }
-    }
+    };
 
     var validateLogout = function($q, $state, $timeout, IdentityFactory) {
         if (!IdentityFactory.validate()) {
@@ -21,7 +22,27 @@ angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'back
         } else {
             return $q.when();
         }
-    }
+    };
+
+    var getColors = function(ColorFactory) {
+        return ColorFactory.getAll()
+            .then(function(response) {
+                return response.result.colors;
+            })
+            .catch(function(error) {
+                return [];
+            });
+    };
+
+    var getModels = function(ModelFactory) {
+        return ModelFactory.getAll()
+            .then(function(response) {
+                return response.result.models;
+            })
+            .catch(function(error) {
+                return [];
+            });
+    };
 
     $stateProvider
         .state('backend', {
@@ -223,23 +244,10 @@ angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'back
                 isNewRecord: function() {
                     return true;
                 },
-                colors: function(ColorFactory) {
-                    return ColorFactory.getAll()
-                        .then(function(response) {
-
-                            return response.result.colors;
-                        })
-                        .catch(function(error) {
-
-                            return [];
-                        });
-
-                    return true;
-                },
                 leather: function() {
-
                     return {};
-                }
+                },
+                colors: getColors
             }
         })
         .state('backend.leather-update', {
@@ -255,19 +263,6 @@ angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'back
                 isNewRecord: function() {
                     return false;
                 },
-                colors: function(ColorFactory) {
-                    return ColorFactory.getAll()
-                        .then(function(response) {
-
-                            return response.result.colors;
-                        })
-                        .catch(function(error) {
-
-                            return [];
-                        });
-
-                    return true;
-                },
                 leather: function($stateParams, LeatherFactory) {
                     return LeatherFactory.getById($stateParams._id)
                         .then(function(response) {
@@ -276,7 +271,138 @@ angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'back
                         .catch(function() {
                             return {};
                         });
+                },
+                colors: getColors
+            }
+        })
+        .state('backend.model-index', {
+            url: '/backend/model/index',
+            views: {
+                'container@': {
+                    controller: 'ModelIndexController',
+                    templateUrl: '/backend/views/model/index.html'
                 }
+            },
+            resolve: {
+                logout: validateLogout,
+                models: function(ModelFactory) {
+                    return ModelFactory.getAll()
+                        .then(function(response) {
+                            return response.result.models;
+                        })
+                        .catch(function() {
+                            return [];
+                        });
+                }
+            }
+        })
+        .state('backend.model-create', {
+            url: '/backend/model/create',
+            views: {
+                'container@': {
+                    controller: 'ModelFormController',
+                    templateUrl: '/backend/views/model/create.html'
+                }
+            },
+            resolve: {
+                logout: validateLogout,
+                isNewRecord: function() {
+                    return true;
+                },
+                model: function() {
+                    return {};
+                },
+                colors: getColors
+            }
+        })
+        .state('backend.model-update', {
+            url: '/backend/model/update/:_id',
+            views: {
+                'container@': {
+                    controller: 'ModelFormController',
+                    templateUrl: '/backend/views/model/update.html'
+                }
+            },
+            resolve: {
+                logout: validateLogout,
+                isNewRecord: function() {
+                    return false;
+                },
+                model: function($stateParams, ModelFactory) {
+                    return ModelFactory.getById($stateParams._id)
+                        .then(function(response) {
+                            return response.result.model;
+                        })
+                        .catch(function() {
+                            return {};
+                        });
+                },
+                colors: getColors
+            }
+        })
+        .state('backend.size-index', {
+            url: '/backend/size/index',
+            views: {
+                'container@': {
+                    controller: 'SizeIndexController',
+                    templateUrl: '/backend/views/size/index.html'
+                }
+            },
+            resolve: {
+                logout: validateLogout,
+                sizesObject: function(SizeFactory) {
+                    return SizeFactory.getAll()
+                        .then(function(response) {
+                            return response.result.sizes;
+                        })
+                        .catch(function() {
+                            return [];
+                        });
+                }
+            }
+        })
+        .state('backend.size-create', {
+            url: '/backend/size/create',
+            views: {
+                'container@': {
+                    controller: 'SizeFormController',
+                    templateUrl: '/backend/views/size/form.html'
+                }
+            },
+            resolve: {
+                logout: validateLogout,
+                isNewRecord: function() {
+                    return true;
+                },
+                sizeObject: function() {
+                    return {};
+                },
+                modelsObject: getModels
+            }
+        })
+        .state('backend.size-update', {
+            url: '/backend/size/update/:_id',
+            views: {
+                'container@': {
+                    controller: 'SizeFormController',
+                    templateUrl: '/backend/views/size/form.html'
+                }
+            },
+            resolve: {
+                logout: validateLogout,
+                isNewRecord: function() {
+                    return false;
+                },
+                sizeObject: function($stateParams, SizeFactory) {
+                    return SizeFactory.getById($stateParams._id)
+                        .then(function(response) {
+                            return response.result.size;
+                        })
+                        .catch(function() {
+                            return {};
+                        });
+                },
+                modelsObject: getModels
             }
         })
         .state('backend.bind-index', {
