@@ -1,0 +1,36 @@
+<h1>滾邊顏色列表</h1>
+<a class="btn btn-success" ui-sref="backend.bind-create" role="button">顏色新增</a>
+<table st-table="bindColors" class="table color-table">
+	<thead>
+		<tr>
+			<th>標題</th>
+			<th>色碼</th>
+			<!-- <th>操作</th> -->
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="bindColor in bindColors">
+			<td class="vertical-align-middle">
+				{{bindColor.bind_color_index.title}}
+			</td>
+			<td class="vertical-align-middle">
+				<div ng-style="{backgroundColor: bindColor.bind_color_index.color_code}" class="thumbnail border-font">{{bindColor.bind_color_index.color_code}}</div>
+			</td>
+			<!-- <td class="vertical-align-middle">
+				<a class="btn btn-sm btn-primary" title="更新" ui-sref="backend.color-update({_id: color._id})">
+					<span class="glyphicon glyphicon-pencil"></span>
+				</a>
+				<button class="btn btn-sm btn-danger" title="刪除" ng-click="delete($index, color._id)">
+					<span class="glyphicon glyphicon-trash"></span>
+				</button>
+			</td> -->
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="5" class="text-center">
+				<div st-pagination="" st-items-by-page="10" st-displayed-pages="10"></div>
+			</td>
+		</tr>
+	</tfoot>
+</table>

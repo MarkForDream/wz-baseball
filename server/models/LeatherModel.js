@@ -6,9 +6,8 @@ var LeatherSchema = mongoose.Schema({
     img: String,
     description: String,
     colors: [{
-        _id: {type: mongoose.Schema.Types.ObjectId, ref: 'Color'},
-        colorTitle: String,
-        colorCode: String
+        _id: {type: mongoose.Schema.Types.ObjectId, ref: 'Color'}
+
     }]
 }, {collection: 'leather'});
 

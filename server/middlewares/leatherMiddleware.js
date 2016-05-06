@@ -45,9 +45,7 @@ module.exports = {
                 leather.colors = [];
                 body.selectedColors.map(function(selectedColor) {
                     leather.colors.push({
-                        _id: selectedColor._id,
-                        colorTitle: selectedColor.title,
-                        colorCode: selectedColor.color_code
+                        _id: selectedColor._id
                     });
                 });
 
@@ -86,9 +84,7 @@ module.exports = {
                     leather.colors = [];
                     body.selectedColors.map(function(selectedColor) {
                         leather.colors.push({
-                            _id: selectedColor._id,
-                            colorTitle: selectedColor.title,
-                            colorCode: selectedColor.color_code
+                            _id: selectedColor._id
                         });
                     });
 

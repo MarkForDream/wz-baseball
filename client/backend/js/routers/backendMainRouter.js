@@ -1,4 +1,4 @@
-angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'backend.factory.color', 'backend.factory.leather', 'backend.factory.logo', 'backend.controller.layout', 'backend.controller.identity', 'backend.controller.color', 'backend.controller.logo', 'backend.controller.leather']).config(function($stateProvider, $urlRouterProvider) {
+angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'backend.factory.color', 'backend.factory.leather', 'backend.factory.logo', 'backend.factory.bind', 'backend.controller.layout', 'backend.controller.identity', 'backend.controller.color', 'backend.controller.logo', 'backend.controller.leather', 'backend.controller.bind']).config(function($stateProvider, $urlRouterProvider) {
     var validateLogin = function($q, $state, $timeout, IdentityFactory) {
         if (IdentityFactory.validate()) {
             $timeout(function() {
@@ -276,6 +276,55 @@ angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'back
                         .catch(function() {
                             return {};
                         });
+                }
+            }
+        })
+        .state('backend.bind-index', {
+            url: '/backend/bind/index',
+            views: {
+                'container@': {
+                    controller: 'BindIndexController',
+                    templateUrl: '/backend/views/bind/index.html'
+                }
+            },
+            resolve: {
+                logout: validateLogout,
+                bindColors: function(BindFactory) {
+                    return BindFactory.getAll()
+                        .then(function(response) {
+                            return response.result.bindColors;
+                        })
+                        .catch(function() {
+                            return [];
+                        });
+                }
+            }
+        })
+        .state('backend.bind-create', {
+            url: '/backend/bind/create',
+            views: {
+                'container@': {
+                    controller: 'BindFormController',
+                    templateUrl: '/backend/views/bind/form.html'
+                }
+            },
+            resolve: {
+                logout: validateLogout,
+                isNewRecord: function() {
+                    return true;
+                },
+                colors: function(ColorFactory) {
+                    return ColorFactory.getAll()
+                        .then(function(response) {
+
+                            return response.result.colors;
+                        })
+                        .catch(function(error) {
+
+                            return [];
+                        });
+
+                    return true;
                 }
             }
         });
