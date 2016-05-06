@@ -11,5 +11,6 @@ module.exports = {
         'mailFrom': '',
         'user': '',
         'pass': ''
-    }
+    },
+    'recommendationLevel': [0, 1, 2]
 };

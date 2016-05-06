@@ -1,0 +1,45 @@
+<div class="col-xs-12">
+    <h1>刀模新增</h1>
+    <form ng-submit="modelForm.$valid && modelFormSubmit(imgModel)" name="modelForm" novalidate>
+        <div class="form-group required" ng-form="title" ng-class="{
+            'has-success': title.$valid && (!title.$pristine || modelForm.$submitted),
+            'has-error': title.$invalid && (!title.$pristine || modelForm.$submitted)
+        }">
+            <label for="title">標題</label>
+            <input type="text" placeholder="標題" class="form-control" name="title" ng-model="model.title" required>
+            <div class="error-messages" ng-messages="title.$error" ng-show="title.$invalid && (!title.$pristine || modelForm.$submitted)">
+                <div ng-messages-include="errorMessages.html"></div>
+            </div>
+        </div>
+        <div class="form-group required" ng-form="img" ng-class="{
+            'has-success': img.$valid && (!img.$pristine || modelForm.$submitted),
+            'has-error': img.$invalid && (!img.$pristine || modelForm.$submitted)
+        }">
+            <label for="img">圖片</label>
+            <input type="file" name="img" ng-model="imgModel" ngf-select ngf-accept="'image/*'" ngf-pattern="'image/*'" ngf-model-invalid="errorFile" required>
+            <img ngf-src="imgModel" ngf-background="file" ngf-resize="{width: 300}" ngf-no-object-url="true">
+            <div class="error-messages" ng-show="img.$invalid && (!img.$pristine || modelForm.$submitted)">
+                <p ng-show="img.$error.required">此欄位不可為空白</p>
+            </div>
+        </div>
+        <div class="form-group" ng-form="color" ng-class="{
+            'has-success': color.$valid && (!color.$pristine || modelForm.$submitted),
+            'has-error': color.$invalid && (!color.$pristine || modelForm.$submitted)
+        }">
+            <label for="color">顏色</label>
+            <md-radio-group ng-model="model.color" class="row color-table">
+                <md-radio-button ng-repeat="color in colors" ng-value="color.color_code" class="col-xs-6 col-sm-4 col-md-3 no-margin">
+                    <div ng-style="{backgroundColor: color.color_code}" class="thumbnail border-font">{{color.title}}</div>
+                </md-radio-button>
+            </md-radio-group>
+            <div class="error-messages" ng-messages="color.$error" ng-show="color.$invalid && (!color.$pristine || modelForm.$submitted)">
+                <div ng-messages-include="errorMessages.html"></div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-warning btn-lg" ng-disabled="
+            (modelForm.$valid && modelForm.$submitted) || modelForm.$pristine || modelForm.$invalid
+        ">
+            送出
+        </button>
+    </form>
+</div>

@@ -1,0 +1,46 @@
+<h1>尺寸列表</h1>
+<a class="btn btn-success" ui-sref="backend.size-create" role="button">尺寸新增</a>
+<table st-table="sizesObject" class="table color-table">
+	<thead>
+		<tr>
+			<th>尺寸</th>
+			<th>刀模種類</th>
+			<th>棒球用</th>
+			<th>壘球用</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="sizeObject in sizesObject">
+			<td class="vertical-align-middle">
+				{{sizeObject.size}}
+			</td>
+			<td class="vertical-align-middle">
+				<div ng-repeat="model in sizeObject.models">
+					<div ng-style="{backgroundColor: model.color}" class="thumbnail border-font">{{model.title}}</div>
+				</div>
+			</td>
+			<td class="vertical-align-middle">
+				{{recommendationLevel[sizeObject.for_baseball]}}
+			</td>
+			<td class="vertical-align-middle">
+				{{recommendationLevel[sizeObject.for_softball]}}
+			</td>
+			<td class="vertical-align-middle">
+				<a class="btn btn-sm btn-primary" title="更新" ui-sref="backend.size-update({_id: sizeObject._id})">
+					<span class="glyphicon glyphicon-pencil"></span>
+				</a>
+				<button class="btn btn-sm btn-danger" title="刪除" ng-click="delete($index, sizeObject._id)">
+					<span class="glyphicon glyphicon-trash"></span>
+				</button>
+			</td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="5" class="text-center">
+				<div st-pagination="" st-items-by-page="10" st-displayed-pages="10"></div>
+			</td>
+		</tr>
+	</tfoot>
+</table>

@@ -1,0 +1,68 @@
+<div class="col-xs-12">
+    <h1>{{formTitle}}</h1>
+    <form ng-submit="sizeForm.$valid && sizeFormSubmit()" name="sizeForm" novalidate>
+        <div class="form-group required" ng-form="size" ng-class="{
+            'has-success': size.$valid && (!size.$pristine || sizeForm.$submitted),
+            'has-error': size.$invalid && (!size.$pristine || sizeForm.$submitted)
+        }">
+            <label for="size">尺寸</label>
+            <input type="number" step="0.5" placeholder="尺寸" class="form-control" name="size" ng-model="sizeObject.size" required>
+            <div class="error-messages" ng-messages="size.$error" ng-show="size.$invalid && (!size.$pristine || sizeForm.$submitted)">
+                <div ng-messages-include="errorMessages.html"></div>
+            </div>
+        </div>
+        <div class="form-group required" ng-form="models" ng-class="{
+            'has-success': models.$valid && (!models.$pristine || sizeForm.$submitted),
+            'has-error': models.$invalid && (!models.$pristine || sizeForm.$submitted)
+        }">
+            <label for="models">刀模種類</label>
+            <div class="row">
+                <div ng-repeat="modelObject in modelsObject" class="color-table col-xs-6 col-sm-4 col-md-3">
+                    <md-checkbox ng-checked="exist(modelObject._id)" ng-click="toggle(modelObject._id)" required>
+                        <div ng-style="{backgroundColor: modelObject.color}" class="thumbnail border-font">{{modelObject.title}}</div>
+                    </md-checkbox>
+                </div>
+            </div>
+            <div class="error-messages" ng-show="modelsToggle && sizeObject.models.length === 0">
+                <p>此欄位不可為空白</p>
+            </div>
+        </div>
+        <div class="form-group required" ng-form="for_baseball" ng-class="{
+            'has-success': for_baseball.$valid && (!for_baseball.$pristine || sizeForm.$submitted),
+            'has-error': for_baseball.$invalid && (!for_baseball.$pristine || sizeForm.$submitted)
+        }">
+            <label for="for_baseball">棒球用</label>
+            <md-radio-group ng-model="sizeObject.for_baseball" class="row" required>
+                <md-radio-button ng-repeat="option in recommendationLevel" ng-value="$index" class="col-xs-6 col-sm-4 col-md-3 no-margin">
+                    {{option}}
+                </md-radio-button>
+            </md-radio-group>
+            <div class="error-messages" ng-messages="for_baseball.$error" ng-show="
+                for_baseball.$invalid && (!for_baseball.$pristine || sizeForm.$submitted)
+            ">
+                <div ng-messages-include="errorMessages.html"></div>
+            </div>
+        </div>
+        <div class="form-group required" ng-form="for_softball" ng-class="{
+            'has-success': for_softball.$valid && (!for_softball.$pristine || sizeForm.$submitted),
+            'has-error': for_softball.$invalid && (!for_softball.$pristine || sizeForm.$submitted)
+        }">
+            <label for="for_softball">壘球用</label>
+            <md-radio-group ng-model="sizeObject.for_softball" class="row" required>
+                <md-radio-button ng-repeat="option in recommendationLevel" ng-value="$index" class="col-xs-6 col-sm-4 col-md-3 no-margin">
+                    {{option}}
+                </md-radio-button>
+            </md-radio-group>
+            <div class="error-messages" ng-messages="for_softball.$error" ng-show="
+                for_softball.$invalid && (!for_softball.$pristine || sizeForm.$submitted)
+            ">
+                <div ng-messages-include="errorMessages.html"></div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-warning btn-lg" ng-disabled="
+            (sizeForm.$valid && sizeForm.$submitted) || sizeForm.$invalid || (sizeForm.$pristine && !modelsToggle) || sizeObject.models.length === 0
+        ">
+            送出
+        </button>
+    </form>
+</div>

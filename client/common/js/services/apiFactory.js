@@ -2,10 +2,7 @@ angular.module('common.factory', []).factory('ApiFactory', function($window, $q,
     var factory = {};
 
     factory.callApi = function(url, data, isRequiredAuth, okCallback, errorCallback) {
-
-        if (isRequiredAuth) {
-            data.token = $window.localStorage['wz-baseball-token'];
-        }
+        if (isRequiredAuth) data.token = $window.localStorage[TOKEN_NAME];
 
         var defer = $q.defer();
 

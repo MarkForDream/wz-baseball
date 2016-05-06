@@ -1,4 +1,4 @@
-angular.module('backend.directive', []).directive('validateEmail', function() {
+angular.module('common.directive', []).directive('validateEmail', function() {
     return {
         restrict: 'A',
         require: 'ngModel',

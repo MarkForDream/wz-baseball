@@ -1,21 +1,9 @@
 angular.module('backend.factory.identity', ['common.factory']).factory('IdentityFactory', function($window, $rootScope, ApiFactory) {
     var factory = {};
 
-    factory.getToken = function() {
-        return $window.localStorage['wz-baseball-token'];
-    };
-
-    factory.saveToken = function(token) {
-        $window.localStorage['wz-baseball-token'] = token;
-    };
-
-    factory.removeToken = function() {
-        $window.localStorage.removeItem('wz-baseball-token');
-    };
-
     factory.initialize = function() {
         var identity = {'status': false};
-        var token = factory.getToken();
+        var token = $window.localStorage[TOKEN_NAME];
 
         if (token) {
             var payload = JSON.parse($window.atob(token.split('.')[1]));
@@ -34,7 +22,7 @@ angular.module('backend.factory.identity', ['common.factory']).factory('Identity
     factory.login = function(user) {
         return ApiFactory.callApi('/api/backend/login', user, false,
             function(response) {
-                factory.saveToken(response.result.token);
+                $window.localStorage[TOKEN_NAME] = response.result.token;
                 $rootScope.identity = {'status': true, 'email': user.email};
             },
             function(error) {
@@ -44,7 +32,7 @@ angular.module('backend.factory.identity', ['common.factory']).factory('Identity
     };
 
     factory.logout = function(callback) {
-        factory.removeToken();
+        $window.localStorage.removeItem(TOKEN_NAME);
         $rootScope.identity = {'status': false};
 
         callback();
