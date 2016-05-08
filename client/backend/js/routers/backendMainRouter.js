@@ -418,7 +418,11 @@ angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'back
                 bindColors: function(BindFactory) {
                     return BindFactory.getAll()
                         .then(function(response) {
-                            return response.result.bindColors;
+                            if (response.result.bindColors) {
+                                return response.result.bindColors.bind_colors;
+                            } else {
+                                return [];
+                            }
                         })
                         .catch(function() {
                             return [];
@@ -436,22 +440,24 @@ angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'back
             },
             resolve: {
                 logout: validateLogout,
-                isNewRecord: function() {
-                    return true;
-                },
-                colors: function(ColorFactory) {
-                    return ColorFactory.getAll()
+                bindColors: function(BindFactory) {
+                    return BindFactory.getAll()
                         .then(function(response) {
+                            if (response.result.bindColors) {
 
-                            return response.result.colors;
+                                return response.result.bindColors;
+                            } else {
+                                return [];
+                            }
                         })
-                        .catch(function(error) {
-
+                        .catch(function() {
                             return [];
                         });
 
-                    return true;
-                }
+                },
+                colors: getColors
             }
         });
+
+
 });

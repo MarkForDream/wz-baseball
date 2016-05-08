@@ -3,7 +3,7 @@ var timeBehavior = require('server/plugins/timeBehavior');
 
 var BindSchema = mongoose.Schema({
 
-    bind_color_index: {type: mongoose.Schema.Types.ObjectId, ref: 'Color'}
+    bind_colors: [{type: mongoose.Schema.Types.ObjectId, ref: 'Color'}]
 
 }, {collection: 'bind'});
 

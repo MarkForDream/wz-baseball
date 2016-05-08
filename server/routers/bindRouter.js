@@ -8,7 +8,7 @@ module.exports = function(express) {
 
     router.post('/backend/bind/create', tokenMiddleware.verify, bindMiddleware.create);
 
-    // router.post('/backend/leather/update', tokenMiddleware.verify, leatherMiddleware.update);
+    router.post('/backend/bind/update', tokenMiddleware.verify, bindMiddleware.update);
 
     return router;
 };
