@@ -5,10 +5,8 @@ var LeatherSchema = mongoose.Schema({
     title: String,
     img: String,
     description: String,
-    colors: [{
-        _id: {type: mongoose.Schema.Types.ObjectId, ref: 'Color'}
-
-    }]
+    is_deleted: Boolean,
+    colors: [{type: mongoose.Schema.Types.ObjectId, ref: 'Color'}]
 }, {collection: 'leather'});
 
 LeatherSchema.plugin(timeBehavior);

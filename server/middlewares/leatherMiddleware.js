@@ -3,25 +3,86 @@ var config = require('server/config/main');
 
 module.exports = {
     getById: function(request, response, next) {
-        LeatherModel.findById(request.body._id, {'created_at': false, 'updated_at': false, '__v': false}, function(error, leather) {
-            if (error) return response.json(config.systemError);
+        LeatherModel.findOne({
+                '_id': request.body._id,
+                'is_deleted': false
+            })
+            .select({
+                'created_at': false,
+                'updated_at': false,
+                '__v': false
+            })
+            .populate({
+                path: 'colors',
+                match: {
+                    is_deleted: false
+                }
+            })
+            .exec(function(error, leather) {
+                if (error) return response.json(config.systemError);
 
-            return response.json({'status': 'ok', 'result': {'leather': leather}});
-        });
+                return response.json({
+                    'status': 'ok',
+                    'result': {
+                        'leather': leather
+                    }
+                });
+            });
     },
     getAll: function(request, response, next) {
-        LeatherModel.find({}, {'created_at': false, 'updated_at': false, '__v': false}, {'sort': {'created_at': -1}}, function(error, leathers) {
-            if (error) return response.json(config.systemError);
+        LeatherModel.find({
+                'is_deleted': false
+            })
+            .select({
+                'created_at': false,
+                'updated_at': false,
+                '__v': false
+            })
+            .sort({
+                'created_at': -1
+            })
+            .populate({
+                path: 'colors',
+                match: {
+                    is_deleted: false
+                }
+            })
+            .exec(function(error, leathers) {
+                if (error) return response.json(config.systemError);
 
-            return response.json({'status': 'ok', 'result': {'leathers': leathers}});
-        });
+                return response.json({
+                    'status': 'ok',
+                    'result': {
+                        'leathers': leathers
+                    }
+                });
+            });
     },
     delete: function(request, response, next) {
-        LeatherModel.remove({'_id': request.body._id}, function(error) {
-            if (error) return response.json(config.systemError);
+        LeatherModel.findOne({
+                '_id': request.body._id,
+                'is_deleted': false
+            })
+            .select({
+                'created_at': false,
+                'updated_at': false,
+                '__v': false
+            })
+            .exec(function(error, leather) {
 
-            return response.json({'status': 'ok', 'result': {'msg': '皮革刪除成功'}});
-        });
+                if (error || !leather) return response.json(config.systemError);
+
+                leather.is_deleted = true;
+                leather.save(function(error) {
+                    if (error) return response.json(config.systemError);
+                    return response.json({
+                        'status': 'ok',
+                        'result': {
+                            'msg': '皮革刪除成功'
+                        }
+                    });
+                });
+            });
     },
     create: function(request, response, next) {
         var body = request.body;
@@ -41,7 +102,7 @@ module.exports = {
                 leather.title = body.title;
                 leather.img = body.img;
                 leather.description = body.description || '';
-
+                leather.is_deleted = false;
                 leather.colors = [];
                 body.selectedColors.map(function(selectedColor) {
                     leather.colors.push({
@@ -54,11 +115,22 @@ module.exports = {
 
                         return response.json(config.systemError);
                     }
-                    return response.json({'status': 'ok', 'result': {'msg': '皮革新增成功'}});
+                    return response.json({
+                        'status': 'ok',
+                        'result': {
+                            'msg': '皮革新增成功'
+                        }
+                    });
                 });
             })
             .catch(function(errors) {
-                return response.json({'status': 'error', 'result': {'errorCode': 5, 'errorMsg': '標題或圖片請正確填寫'}});
+                return response.json({
+                    'status': 'error',
+                    'result': {
+                        'errorCode': 5,
+                        'errorMsg': '標題或圖片請正確填寫'
+                    }
+                });
             });
     },
     update: function(request, response, next) {
@@ -74,13 +146,16 @@ module.exports = {
 
         request.asyncValidationErrors()
             .then(function() {
-                LeatherModel.findById(request.body._id, function(error, leather) {
+                LeatherModel.findOne({
+                    '_id': request.body._id,
+                    'is_deleted': false
+                }, function(error, leather) {
                     if (error) return response.json(config.systemError);
 
                     leather.title = body.title;
                     leather.img = body.img;
                     leather.description = body.description || '';
-
+                    leather.is_deleted = false;
                     leather.colors = [];
                     body.selectedColors.map(function(selectedColor) {
                         leather.colors.push({
@@ -91,12 +166,23 @@ module.exports = {
                     leather.save(function(error) {
                         if (error) return response.json(config.systemError);
 
-                        return response.json({'status': 'ok', 'result': {'msg': '皮革更新成功'}});
+                        return response.json({
+                            'status': 'ok',
+                            'result': {
+                                'msg': '皮革更新成功'
+                            }
+                        });
                     });
                 });
             })
             .catch(function(errors) {
-                return response.json({'status': 'error', 'result': {'errorCode': 4, 'errorMsg': '標題或圖片請正確填寫'}});
+                return response.json({
+                    'status': 'error',
+                    'result': {
+                        'errorCode': 4,
+                        'errorMsg': '標題或圖片請正確填寫'
+                    }
+                });
             });
     }
 };
