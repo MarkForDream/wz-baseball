@@ -1,48 +1,48 @@
-angular.module('backend.controller.bind', [])
-    .controller('BindIndexController', function($scope, toasty, bindColors) {
+angular.module('backend.controller.stitching', [])
+    .controller('StitchingIndexController', function($scope, toasty, stitchingColors) {
 
-        if (bindColors.length > 0) {
-            $scope.bindColorListTitle = "顏色更新";
+        if (stitchingColors.length > 0) {
+            $scope.stitchingColorListTitle = "顏色更新";
         } else {
-            $scope.bindColorListTitle = "顏色新增";
+            $scope.stitchingColorListTitle = "顏色新增";
         }
 
-        $scope.bindColors = bindColors;
+        $scope.stitchingColors = stitchingColors;
 
     })
-    .controller('BindFormController', function($scope, $state, $stateParams, toasty, colors, bindColors, BindFactory) {
+    .controller('StitchingFormController', function($scope, $state, $stateParams, toasty, colors, stitchingColors, StitchingFactory) {
 
         var isNewRecord = true;
-        if (bindColors.bind_colors) {
-            isNewRecord = bindColors.bind_colors.length > 0 ? false : true;
+        if (stitchingColors.stitching_colors) {
+            isNewRecord = stitchingColors.stitching_colors.length > 0 ? false : true;
         }
 
         $scope.availabeColors = colors;
-        $scope.bind = {
+        $scope.stitching = {
             selectedColors: []
         };
 
         if (!isNewRecord) {
 
-            $scope.formTitle = '滾邊顏色更新';
-            $scope.bindFormBtnTitle = "更新";
-            $scope.bind.selectedColors = bindColors.bind_colors;
+            $scope.formTitle = '車縫顏色更新';
+            $scope.stitchingFormBtnTitle = "更新";
+            $scope.stitching.selectedColors = stitchingColors.stitching_colors;
         } else {
-            $scope.formTitle = '滾邊顏色新增';
-            $scope.bindFormBtnTitle = "新增";
+            $scope.formTitle = '車縫顏色新增';
+            $scope.stitchingFormBtnTitle = "新增";
         }
 
         $scope.toggle = function(color, selectedColors) {
 
             if ($scope.isColorChecked(color, selectedColors)) {
 
-                $scope.bind.selectedColors = selectedColors.filter(function(selectedColor) {
+                $scope.stitching.selectedColors = selectedColors.filter(function(selectedColor) {
                     return color._id !== selectedColor._id;
                 });
 
             } else {
 
-                $scope.bind.selectedColors.push(color);
+                $scope.stitching.selectedColors.push(color);
 
             }
 
@@ -59,12 +59,12 @@ angular.module('backend.controller.bind', [])
             return isColorChecked;
         };
 
-        $scope.bindFormSubmit = function() {
+        $scope.stitchingFormSubmit = function() {
 
-            BindFactory.submit($scope.bind, isNewRecord)
+            StitchingFactory.submit($scope.stitching, isNewRecord)
                 .then(function(response) {
 
-                    $state.go('backend.bind-index')
+                    $state.go('backend.stitching-index')
                         .then(function() {
                             toasty.success({
                                 title: response.result.msg
