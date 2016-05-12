@@ -20,7 +20,7 @@ module.exports = {
             return true;
         },
         notEmptyArray: function(value) {
-            return Array.isArray(value) && value.length > 0;
+            return (Object.prototype.toString.call(value) === '[object Array]') && value.length > 0;
         },
         validateEmail: function(value) {
             if (value) return config.emailValidator.test(value);
@@ -28,18 +28,30 @@ module.exports = {
             return true;
         },
         validateMongoId: function(value) {
-            if (value) return mongoose.Types.ObjectId.isValid(value);
+            if (Object.prototype.toString.call(value) === '[object String]') {
+                return mongoose.Types.ObjectId.isValid(value);
+            } else if (Object.prototype.toString.call(value) === '[object Array]') {
+                value.forEach(function(item) {
+                    if (!mongoose.Types.ObjectId.isValid(item)) return false;
+                });
+            }
 
             return true;
         },
         validateImg: function(value) {
-            if (value) {
+            if (Object.prototype.toString.call(value) === '[object String]') {
                 var imgParser = value.split(',');
 
-                if (imgParser.length === 2 && (imgParser[0] === 'data:image/jpeg;base64' || imgParser[0] === 'data:image/png;base64')) return validator.isBase64(imgParser[1]);
+                return (imgParser.length === 2 && (imgParser[0] === 'data:image/jpeg;base64' || imgParser[0] === 'data:image/png;base64') && validator.isBase64(imgParser[1]));
+            } else if (Object.prototype.toString.call(value) === '[object Array]') {
+                value.forEach(function(item) {
+                    var imgParser = item.split(',');
+
+                    if (!(imgParser.length === 2 && (imgParser[0] === 'data:image/jpeg;base64' || imgParser[0] === 'data:image/png;base64') && validator.isBase64(imgParser[1]))) return false;
+                });
             }
 
-            return false;
+            return true;
         },
     }
 };

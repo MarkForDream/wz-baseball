@@ -1,4 +1,4 @@
-angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'backend.factory.color', 'backend.factory.logo', 'backend.factory.leather', 'backend.factory.model', 'backend.factory.size', 'backend.controller.layout', 'backend.controller.identity', 'backend.controller.color', 'backend.controller.logo', 'backend.controller.leather', 'backend.controller.model', 'backend.controller.size']).config(function($stateProvider, $urlRouterProvider) {
+angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'backend.factory.color', 'backend.factory.logo', 'backend.factory.leather', 'backend.factory.model', 'backend.factory.size', 'backend.factory.web', 'backend.controller.layout', 'backend.controller.identity', 'backend.controller.color', 'backend.controller.logo', 'backend.controller.leather', 'backend.controller.model', 'backend.controller.size', 'backend.controller.web']).config(function($stateProvider, $urlRouterProvider) {
     var validateLogin = function($q, $state, $timeout, IdentityFactory) {
         if (IdentityFactory.validate()) {
             $timeout(function() {
@@ -39,6 +39,16 @@ angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'back
                 return response.result.models;
             })
             .catch(function(error) {
+                return [];
+            });
+    };
+
+    var getWebs = function(WebFactory) {
+        return WebFactory.getAll()
+            .then(function(response) {
+                return response.result.webs;
+            })
+            .catch(function() {
                 return [];
             });
     };
@@ -402,6 +412,44 @@ angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'back
                         });
                 },
                 modelsObject: getModels
+            }
+        })
+        .state('backend.web-index', {
+            url: '/backend/web/index',
+            views: {
+                'container@': {
+                    controller: 'WebIndexController',
+                    templateUrl: '/backend/views/web/index.html'
+                }
+            },
+            resolve: {
+                logout: validateLogout,
+                webs: getWebs
+            }
+        })
+        .state('backend.web-priority', {
+            url: '/backend/web/priority',
+            views: {
+                'container@': {
+                    controller: 'WebPriorityController',
+                    templateUrl: '/backend/views/web/priority.html'
+                }
+            },
+            resolve: {
+                logout: validateLogout,
+                webs: getWebs
+            }
+        })
+        .state('backend.web-create', {
+            url: '/backend/web/create',
+            views: {
+                'container@': {
+                    controller: 'WebFormController',
+                    templateUrl: '/backend/views/web/form.html'
+                }
+            },
+            resolve: {
+                logout: validateLogout
             }
         });
 });

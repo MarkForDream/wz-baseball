@@ -13,6 +13,7 @@ var logoRouter = require('server/routers/logoRouter');
 var leatherRouter = require('server/routers/leatherRouter');
 var modelRouter = require('server/routers/modelRouter');
 var sizeRouter = require('server/routers/sizeRouter');
+var webRouter = require('server/routers/webRouter');
 var orderRouter = require('server/routers/orderRouter');
 var app = express();
 var server = http.createServer(app);
@@ -47,6 +48,7 @@ app.use('/api', logoRouter(express));
 app.use('/api', leatherRouter(express));
 app.use('/api', modelRouter(express));
 app.use('/api', sizeRouter(express));
+app.use('/api', webRouter(express));
 app.use('/api', orderRouter(express));
 
 // logger for error (should be declared afoter souters middleware)

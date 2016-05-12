@@ -44,6 +44,7 @@ module.exports = {
 
         request.checkBody('size', '此欄位不可為空白').notEmpty();
         request.checkBody('models', '此欄位不可為空白').notEmptyArray();
+        request.checkBody('models', '此欄位的值不正確').validateMongoId();
         request.checkBody('for_baseball', '此欄位不可為空白').notEmpty();
         request.checkBody('for_baseball', '此欄位的值不正確').isIn(config.recommendationLevel);
         request.checkBody('for_softball', '此欄位不可為空白').notEmpty();
@@ -77,6 +78,7 @@ module.exports = {
 
         request.checkBody('size', '此欄位不可為空白').notEmpty();
         request.checkBody('models', '此欄位不可為空白').notEmptyArray();
+        request.checkBody('models', '此欄位的值不正確').validateMongoId();
         request.checkBody('for_baseball', '此欄位不可為空白').notEmpty();
         request.checkBody('for_baseball', '此欄位的值不正確').isIn(config.recommendationLevel);
         request.checkBody('for_softball', '此欄位不可為空白').notEmpty();

@@ -1,0 +1,15 @@
+<h1>球檔示意圖排序</h1>
+<table st-table="webs" class="table">
+	<thead>
+		<tr>
+			<th>圖片</th>
+		</tr>
+	</thead>
+	<tbody ui-sortable ng-model="webs">
+		<tr ng-repeat="web in webs">
+			<td class="vertical-align-middle">
+				<img width="100px" ng-src="{{web.img}}" class="img-thumbnail">
+			</td>
+		</tr>
+	</tbody>
+</table>
