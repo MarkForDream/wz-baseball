@@ -1,4 +1,4 @@
-angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'backend.factory.color', 'backend.factory.logo', 'backend.factory.leather', 'backend.factory.model', 'backend.factory.size', 'backend.factory.web', 'backend.controller.layout', 'backend.controller.identity', 'backend.controller.color', 'backend.controller.logo', 'backend.controller.leather', 'backend.controller.model', 'backend.controller.size', 'backend.controller.web']).config(function($stateProvider, $urlRouterProvider) {
+angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'backend.factory.color', 'backend.factory.logo', 'backend.factory.leather', 'backend.factory.model', 'backend.factory.size', 'backend.factory.web', 'backend.factory.bind', 'backend.factory.stitching', 'backend.controller.layout', 'backend.controller.identity', 'backend.controller.color', 'backend.controller.logo', 'backend.controller.leather', 'backend.controller.model', 'backend.controller.size', 'backend.controller.web', 'backend.controller.bind', 'backend.controller.stitching']).config(function($stateProvider, $urlRouterProvider) {
     var validateLogin = function($q, $state, $timeout, IdentityFactory) {
         if (IdentityFactory.validate()) {
             $timeout(function() {
@@ -450,6 +450,96 @@ angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'back
             },
             resolve: {
                 logout: validateLogout
+            }
+        })
+        .state('backend.bind-index', {
+            url: '/backend/bind/index',
+            views: {
+                'container@': {
+                    controller: 'BindIndexController',
+                    templateUrl: '/backend/views/bind/index.html'
+                }
+            },
+            resolve: {
+                logout: validateLogout,
+                bindColors: function(BindFactory) {
+                    return BindFactory.getAll()
+                        .then(function(response) {
+                            if (response.result.bindColors) return response.result.bindColors.bind_colors;
+                            else return [];
+                        })
+                        .catch(function() {
+                            return [];
+                        });
+                }
+            }
+        })
+        .state('backend.bind-create', {
+            url: '/backend/bind/create',
+            views: {
+                'container@': {
+                    controller: 'BindFormController',
+                    templateUrl: '/backend/views/bind/form.html'
+                }
+            },
+            resolve: {
+                logout: validateLogout,
+                bindColors: function(BindFactory) {
+                    return BindFactory.getAll()
+                        .then(function(response) {
+                            if (response.result.bindColors) return response.result.bindColors;
+                            else return [];
+                        })
+                        .catch(function() {
+                            return [];
+                        });
+                },
+                colors: getColors
+            }
+        })
+        .state('backend.stitching-index', {
+            url: '/backend/stitching/index',
+            views: {
+                'container@': {
+                    controller: 'StitchingIndexController',
+                    templateUrl: '/backend/views/stitching/index.html'
+                }
+            },
+            resolve: {
+                logout: validateLogout,
+                stitchingColors: function(StitchingFactory) {
+                    return StitchingFactory.getAll()
+                        .then(function(response) {
+                            if (response.result.stitchingColors) return response.result.stitchingColors.stitching_colors;
+                            else return [];
+                        })
+                        .catch(function() {
+                            return [];
+                        });
+                }
+            }
+        })
+        .state('backend.stitching-create', {
+            url: '/backend/stitching/create',
+            views: {
+                'container@': {
+                    controller: 'StitchingFormController',
+                    templateUrl: '/backend/views/stitching/form.html'
+                }
+            },
+            resolve: {
+                logout: validateLogout,
+                stitchingColors: function(StitchingFactory) {
+                    return StitchingFactory.getAll()
+                        .then(function(response) {
+                            if (response.result.stitchingColors) return response.result.stitchingColors;
+                            else return [];
+                        })
+                        .catch(function() {
+                            return [];
+                        });
+                },
+                colors: getColors
             }
         });
 });

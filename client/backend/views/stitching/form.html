@@ -1,0 +1,54 @@
+<div class="row" style="height: 90vh; overflow: auto;">
+    <div class="col-xs-12">
+        <h1>{{formTitle}}</h1>
+        <form ng-submit="stitchingForm.$valid && stitchingFormSubmit()" name="stitchingForm" novalidate>
+
+            <div class="form-group required" ng-form="colors" ng-class="{
+                'has-success': colors.$valid && (!colors.$pristine || stitchingForm.$submitted),
+                'has-error': colors.$invalid && (!colors.$pristine || stitchingForm.$submitted)
+            }">
+                <label for="colors">顏色</label>
+                <table st-table="availabeColors" class="table color-table">
+                    <thead>
+                        <tr>
+                            <th>打勾新增</th>
+                            <th>顏色</th>
+                            <th>色碼</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="availableColor in availabeColors">
+                            <td class="vertical-align-middle">
+                                <md-checkbox ng-checked="isColorChecked(availableColor, stitching.selectedColors)" ng-click="toggle(availableColor, stitching.selectedColors)">
+                                </md-checkbox>
+                            </td>
+                            <td class="vertical-align-middle">
+                                {{ availableColor.title }}
+                            </td>
+                            <td class="vertical-align-middle">
+                                <div ng-style="{backgroundColor: availableColor.color_code}" class="thumbnail border-font">{{availableColor.color_code}}</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+
+                        <tr>
+                            <td>
+                                <button type="submit" class="btn btn-warning btn-lg"
+                                    ng-disabled="(stitchingForm.$valid && stitchingForm.$submitted) || stitchingForm.$invalid || stitchingColors.length == 0">
+                                    {{ stitchingFormBtnTitle }}
+                                </button>
+                            </td>
+                            <td colspan="5" class="text-right">
+                                <div st-pagination="" st-items-by-page="4" st-displayed-pages="10"></div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+            </div>
+
+        </form>
+    </div>
+</div>

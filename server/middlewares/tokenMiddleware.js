@@ -9,7 +9,6 @@ module.exports = {
             [
                 function(done) {
                     var token = request.body.token;
-
                     if (!token) done(config.accessError);
                     else done(null, token);
                 },

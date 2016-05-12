@@ -6,6 +6,7 @@
 			<th>標題</th>
 			<th>圖片</th>
 			<th>描述</th>
+			<th>顏色</th>
 			<th>操作</th>
 		</tr>
 	</thead>
@@ -19,6 +20,13 @@
 			</td>
 			<td class="vertical-align-middle">
 				{{leather.description}}
+			</td>
+			<td class="vertical-align-middle">
+				<span ng-repeat="color in leather.colors">
+					<span ng-style="{backgroundColor: color.color_code}" class="thumbnail border-font">
+
+					</span>
+				</span>
 			</td>
 			<td class="vertical-align-middle">
 				<a class="btn btn-sm btn-primary" title="更新" ui-sref="backend.leather-update({_id: leather._id})">
