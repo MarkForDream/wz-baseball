@@ -9,6 +9,7 @@ angular.module('wzBaseball', [
     'ngFileUpload',
     'ngMaterial',
     'angular-toasty',
+    'ui.sortable',
     'smart-table',
     'colorpicker.module'
 ]);

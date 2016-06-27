@@ -14,7 +14,6 @@ angular.module('backend.factory.leather', ['common.factory']).factory('LeatherFa
     };
 
     factory.submit = function(leather, isNewRecord) {
-
         if (isNewRecord) return ApiFactory.callApi('/api/backend/leather/create', leather, true);
         else return ApiFactory.callApi('/api/backend/leather/update', leather, true);
     };

@@ -14,7 +14,6 @@ angular.module('backend.factory.logo', ['common.factory']).factory('LogoFactory'
     };
 
     factory.submit = function(logo, isNewRecord) {
-
         if (isNewRecord) return ApiFactory.callApi('/api/backend/logo/create', logo, true);
         else return ApiFactory.callApi('/api/backend/logo/update', logo, true);
     };

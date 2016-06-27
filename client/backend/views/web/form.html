@@ -1,0 +1,16 @@
+<div class="col-xs-12">
+    <h1>球檔示意圖新增</h1>
+    <form ng-submit="imgsModel.length > 0 && webFormSubmit(imgsModel)" name="webForm" novalidate>
+        <div class="form-group required" ng-form="imgs">
+            <label for="imgs">圖片</label>
+            <input type="file" name="imgs" ng-model="imgsModel" ngf-select ngf-multiple="true" ngf-accept="'image/*'" ngf-pattern="'image/*'" required>
+            <div ng-repeat="imgModel in imgsModel">
+                <img ngf-src="imgModel" ngf-background="file" ngf-resize="{width: 300}" ngf-no-object-url="true">
+            </div>
+            <div class="error-messages" ng-show="imgsModel.length === 0"><p>此欄位不可為空白</p></div>
+        </div>
+        <button type="submit" class="btn btn-warning btn-lg" ng-disabled="webForm.$submitted || webForm.$pristine || imgsModel.length === 0">
+            送出
+        </button>
+    </form>
+</div>

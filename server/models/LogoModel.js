@@ -4,7 +4,8 @@ var timeBehavior = require('server/plugins/timeBehavior');
 var LogoSchema = mongoose.Schema({
     title: String,
     img: String,
-    description: String
+    description: String,
+    is_deleted: Boolean
 }, {collection: 'logo'});
 
 LogoSchema.plugin(timeBehavior);

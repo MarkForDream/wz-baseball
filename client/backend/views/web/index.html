@@ -1,0 +1,30 @@
+<h1>球檔示意圖列表</h1>
+<a class="btn btn-success" ui-sref="backend.web-create" role="button">球檔示意圖新增</a>
+<a class="btn btn-success" ui-sref="backend.web-priority" role="button">球檔示意圖排序</a>
+<table st-table="webs" class="table">
+	<thead>
+		<tr>
+			<th>圖片</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="web in webs">
+			<td class="vertical-align-middle">
+				<img width="100px" ng-src="{{web.img}}" class="img-thumbnail">
+			</td>
+			<td class="vertical-align-middle">
+				<button class="btn btn-sm btn-danger" title="刪除" ng-click="delete($index, web._id)">
+					<span class="glyphicon glyphicon-trash"></span>
+				</button>
+			</td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="5" class="text-center">
+				<div st-pagination="" st-items-by-page="10" st-displayed-pages="10"></div>
+			</td>
+		</tr>
+	</tfoot>
+</table>
