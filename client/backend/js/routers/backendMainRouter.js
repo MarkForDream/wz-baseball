@@ -1,4 +1,25 @@
-angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'backend.factory.color', 'backend.factory.logo', 'backend.factory.leather', 'backend.factory.bind', 'backend.factory.stitching', 'backend.factory.model', 'backend.factory.size', 'backend.controller.layout', 'backend.controller.identity', 'backend.controller.color', 'backend.controller.logo', 'backend.controller.leather', 'backend.controller.model', 'backend.controller.size', 'backend.controller.bind', 'backend.controller.stitching']).config(function($stateProvider, $urlRouterProvider) {
+angular.module('backend.router', [
+    'ui.router',
+    'backend.factory.identity',
+    'backend.factory.color',
+    'backend.factory.logo',
+    'backend.factory.leather',
+    'backend.factory.bind',
+    'backend.factory.stitching',
+    'backend.factory.lace',
+    'backend.factory.model',
+    'backend.factory.size',
+    'backend.controller.layout',
+    'backend.controller.identity',
+    'backend.controller.color',
+    'backend.controller.logo',
+    'backend.controller.leather',
+    'backend.controller.model',
+    'backend.controller.size',
+    'backend.controller.bind',
+    'backend.controller.stitching',
+    'backend.controller.lace'
+]).config(function($stateProvider, $urlRouterProvider) {
 
     var validateLogin = function($q, $state, $timeout, IdentityFactory) {
         if (IdentityFactory.validate()) {
@@ -502,7 +523,63 @@ angular.module('backend.router', ['ui.router', 'backend.factory.identity', 'back
 
                                 return response.result.stitchingColors;
                             } else {
-                                
+
+                                return [];
+                            }
+                        })
+                        .catch(function() {
+                            return [];
+                        });
+
+                },
+                colors: getColors
+            }
+        })
+        .state('backend.lace-index', {
+            url: '/backend/lace/index',
+            views: {
+                'container@': {
+                    controller: 'LaceIndexController',
+                    templateUrl: '/backend/views/lace/index.html'
+                }
+            },
+            resolve: {
+                logout: validateLogout,
+                laceColors: function(LaceFactory) {
+                    return LaceFactory.getAll()
+                        .then(function(response) {
+                            if (response.result.laceColors) {
+
+                                return response.result.laceColors.lace_colors;
+                            } else {
+
+                                return [];
+                            }
+                        })
+                        .catch(function() {
+                            return [];
+                        });
+                }
+            }
+        })
+        .state('backend.lace-create', {
+            url: '/backend/lace/create',
+            views: {
+                'container@': {
+                    controller: 'LaceFormController',
+                    templateUrl: '/backend/views/lace/form.html'
+                }
+            },
+            resolve: {
+                logout: validateLogout,
+                laceColors: function(LaceFactory) {
+                    return LaceFactory.getAll()
+                        .then(function(response) {
+                            if (response.result.laceColors) {
+
+                                return response.result.laceColors;
+                            } else {
+
                                 return [];
                             }
                         })

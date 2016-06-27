@@ -1,0 +1,42 @@
+<h1>帶皮顏色列表</h1>
+<a class="btn btn-success" ui-sref="backend.lace-create" role="button">{{ laceColorListTitle }}</a>
+<table class="table color-table">
+	<thead>
+		<tr>
+			<th>帶皮種類</th>
+			<th>現有顏色</th>
+			<!-- <th>操作</th> -->
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td class="vertical-align-middle">
+				一般帶皮
+			</td>
+			<td class="vertical-align-middle">
+				<span ng-repeat="generalLaceColor in generalLaceColors" class="color-table col-xs-6 col-sm-4 col-md-3">
+					<span ng-style="{backgroundColor: generalLaceColor.color_id.color_code}" class="thumbnail border-font">{{generalLaceColor.color_id.color_code}}</span>
+				</span>
+			</td>
+
+		</tr>
+    <tr>
+			<td class="vertical-align-middle">
+				白芯帶皮
+			</td>
+			<td class="vertical-align-middle">
+				<span ng-repeat="whileLaceColor in whileLaceColors" class="color-table col-xs-6 col-sm-4 col-md-3">
+					<span ng-style="{backgroundColor: whileLaceColor.color_id.color_code}" class="thumbnail border-font">{{whileLaceColor.color_id.color_code}}</span>
+				</span>
+			</td>
+
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="5" class="text-center">
+				<!-- <div st-pagination="" st-items-by-page="10" st-displayed-pages="10"></div> -->
+			</td>
+		</tr>
+	</tfoot>
+</table>
